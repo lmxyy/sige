@@ -1,0 +1,43 @@
+---
+data:
+  data_root: database/church_outdoor_sdedit
+  image_size: 128
+  num_workers: 32
+  rescaled: true
+model:
+  attn_resolutions:
+    - 8
+    - 16
+    - 32
+  ch: 64
+  ch_mult:
+    - 1
+    - 2
+    - 4
+    - 6
+    - 8
+  dropout: 0
+  ema: false
+  ema_rate: 0.999
+  head_dim: 64
+  in_ch: 3
+  logsnr_input_type: inv_cos
+  network: pd.sige_unet
+  num_heads: null
+  num_res_blocks: 3
+  out_ch: 6
+  sige_block_size:
+    instance: 4
+    normal: 6
+  sparse_resolution_threshold: 64
+  temb_ch: 768
+  var_type: fixedsmall
+sampling:
+  batch_size: 128
+  eps: 0.02
+  mask_dilate_radius: 2
+  noise_level: 5
+  sample_steps: 5
+  sampler_type: pd
+  skip_type: uniform
+  total_steps: 8

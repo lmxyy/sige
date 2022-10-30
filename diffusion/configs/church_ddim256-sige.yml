@@ -1,0 +1,42 @@
+---
+data:
+  data_root: database/church_outdoor_sdedit
+  image_size: 256
+  num_workers: 32
+  rescaled: true
+model:
+  attn_resolutions:
+    - 16
+  ch: 128
+  ch_mult:
+    - 1
+    - 1
+    - 2
+    - 2
+    - 4
+    - 4
+  dropout: 0
+  ema: true
+  ema_rate: 0.999
+  in_ch: 3
+  network: ddim.sige_fused_unet
+  num_res_blocks: 2
+  out_ch: 3
+  resamp_with_conv: true
+  sige_block_size:
+    instance: 4
+    normal: 6
+  sparse_resolution_threshold: 64
+  var_type: fixedsmall
+sampling:
+  beta_end: 0.02
+  beta_schedule: linear
+  beta_start: 0.0001
+  eps: 0.01
+  eta: 0
+  mask_dilate_radius: 5
+  noise_level: 500
+  sample_steps: 50
+  sampler_type: ddim
+  skip_type: uniform
+  total_steps: 1000
