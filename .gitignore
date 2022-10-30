@@ -41,3 +41,4 @@ results/
 attentions/
 visualizations/
 cmake-build*
+CMakeLists.txt
