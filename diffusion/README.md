@@ -141,7 +141,7 @@ You could measure the latency and MACs of **a single denoising step** with the f
 # For Vanilla Progressive Distillation
 python test.py \
 --config_path configs/church_pd128-original.yml \
---image_metas 432
+--mode profile --image_metas 432
 
 # For Progressive Distllation with SIGE
 python test.py \
