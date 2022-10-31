@@ -162,8 +162,8 @@ class Runner:
             model.set_masks(masks)
 
         if kwargs.pop("verbose", False):
-            editing_ratio = float(difference_mask.sum() / difference_mask.numel())
-            message = "Image %s: Editing Ratio %.3f%%" % (names[0], 100 * editing_ratio)
+            edit_ratio = float(difference_mask.sum() / difference_mask.numel())
+            message = "Image %s: Edit Ratio %.3f%%" % (names[0], 100 * edit_ratio)
             pbar = kwargs.pop("pbar", None)
             if pbar is None:
                 pbar.write(message + "\n")
@@ -187,7 +187,7 @@ class Runner:
             for batch in pbar_dataloader:
                 x0s, es, difference_mask, names = self.preprocess(batch, model, pbar=pbar_dataloader)
                 pbar_dataloader.write(
-                    "Image %s Editing Ratio: %.2f%%"
+                    "Image %s: Edit Ratio %.2f%%"
                     % (names[0], 100 * float(difference_mask.sum() / difference_mask.numel()))
                 )
 

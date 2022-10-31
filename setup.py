@@ -6,9 +6,7 @@ from torch.utils import cpp_extension
 
 if __name__ == "__main__":
     extra_compile_args = {"cxx": ["-g", "-O3", "-lgomp"], "nvcc": ["-O3"]}
-    if platform.system() == "Darwin":
-        pass
-    else:
+    if platform.system() != "Darwin":
         extra_compile_args["cxx"].append("-fopenmp")
 
     cpu_extension = cpp_extension.CppExtension(

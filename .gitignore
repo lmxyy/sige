@@ -42,3 +42,4 @@ attentions/
 visualizations/
 cmake-build*
 CMakeLists.txt
+.ipynb_checkpoints/
