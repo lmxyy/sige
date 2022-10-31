@@ -67,7 +67,7 @@ Then you can run it with
 python example.py [--use_cuda]
 ```
 
-We also have [![colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mit-han-lab/gan-compression/blob/master/cycle_gan.ipynb) example.
+We also have [![colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lmxyy/sige/blob/main/example.ipynb) example.
 
 ### Benchmark
 
