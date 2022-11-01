@@ -9,10 +9,7 @@ __device__ __forceinline__ float binary_op_cuda(float a, float b) {
         return a + b;
     else if (opType == MUL)
         return a * b;
-    else {
-//        __builtin_assume(false);
-        return 0;
-    }
+    else return 0;
 }
 
 template<OpType opType>
@@ -37,8 +34,5 @@ __device__ __forceinline__ float activation_cuda(ActivationType activationType, 
         return z;
     else if (activationType == SWISH)
         return z / (1.0 + exp(-z));
-    else {
-//        __builtin_assume(false);
-        return IDENTITY;
-    }
+    else return IDENTITY;
 }
