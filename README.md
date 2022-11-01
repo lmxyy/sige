@@ -1,6 +1,6 @@
 # Spatially Incremental Generative Engine (SIGE)
 
-### [Project](https://www.cs.cmu.edu/~sige/) | Paper| [Videos](https://youtu.be/rDPotGoPPkQ) | [Slides](www.cs.cmu.edu/~sige/resources/slides.key)
+### [Project](https://www.cs.cmu.edu/~sige/) | Paper | [Videos](https://youtu.be/rDPotGoPPkQ) | [Slides](www.cs.cmu.edu/~sige/resources/slides.key)
 
 **[NEW!]** SIGE  is accepted by NeurIPS 2022! Our code and benchmark datasets are publicly available!
 

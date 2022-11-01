@@ -10,7 +10,7 @@ __device__ __forceinline__ float binary_op_cuda(float a, float b) {
     else if (opType == MUL)
         return a * b;
     else {
-        __builtin_assume(false);
+//        __builtin_assume(false);
         return 0;
     }
 }
@@ -38,7 +38,7 @@ __device__ __forceinline__ float activation_cuda(ActivationType activationType, 
     else if (activationType == SWISH)
         return z / (1.0 + exp(-z));
     else {
-        __builtin_assume(false);
+//        __builtin_assume(false);
         return IDENTITY;
     }
 }
