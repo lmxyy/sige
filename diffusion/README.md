@@ -55,6 +55,8 @@ Specifically,
 
 ### DDIM
 
+We provide [![colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lmxyy/sige/blob/main/diffusion/ddim.ipynb) to quickly test DDIM model with SIGE.
+
 #### Quality Results
 
 * Generate images:
@@ -112,6 +114,8 @@ Note:
 * You could change the number of the warmup and test rounds with `--warmup_times` and `--test_times`.
 
 ### Progressive Distillation
+
+We provide [![colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lmxyy/sige/blob/main/diffusion/progressive_disillation.ipynb) to quickly test Progressive Distillation model with SIGE.
 
 #### Quality Results
 
