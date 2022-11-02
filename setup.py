@@ -48,7 +48,7 @@ if __name__ == "__main__":
         author="Muyang Li",
         author_email="muyangli@cs.cmu.edu",
         ext_modules=ext_modules,
-        packages=["sige"],
+        packages=["sige, sige.nn"],
         cmdclass={"build_ext": cpp_extension.BuildExtension},
         install_requires=["torch>=1.7"],
         url="https://github.com/lmxyy/sige",
