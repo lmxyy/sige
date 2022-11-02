@@ -39,13 +39,19 @@ References:
 
 ### Installation
 
-After installing [PyTorch](https://pytorch.org), you should be able to install SIGE with
+After installing [PyTorch](https://pytorch.org), you should be able to install SIGE with PyPI
+
+```shell
+pip install sige
+```
+
+or via github
 
 ```shell
 pip install git+https://github.com/lmxyy/sige.git
 ```
 
-or
+or locally for development
 
 ```shell
 git clone git@github.com:lmxyy/sige.git
