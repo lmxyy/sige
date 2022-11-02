@@ -1,6 +1,6 @@
-#include "gather.h"
-#include "scatter.h"
-#include "scatter_gather.h"
+#include "gather.cpp"
+#include "scatter.cpp"
+#include "scatter_gather.cpp"
 
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
     m.doc() = "Sparse Incremental Generative Engine (SIGE)";

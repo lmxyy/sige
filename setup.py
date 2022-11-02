@@ -13,11 +13,8 @@ if __name__ == "__main__":
         name="sige.cpu",
         sources=[
             "sige/cpu/gather.cpp",
-            "sige/cpu/gather.h",
             "sige/cpu/scatter.cpp",
-            "sige/cpu/scatter.h",
             "sige/cpu/scatter_gather.cpp",
-            "sige/cpu/scatter_gather.h",
             "sige/cpu/common_cpu.cpp",
             "sige/cpu/pybind_cpu.cpp",
             "sige/common.cpp",
