@@ -55,7 +55,7 @@ if __name__ == "__main__":
         description="Spatially Incremental Generative Engine (SIGE)",
         long_description=long_description,
         long_description_content_type="text/markdown",
-        version="0.1.1",
+        version="0.1.2",
         classifiers=[
             "Programming Language :: Python :: 3",
             "Operating System :: OS Independent",
