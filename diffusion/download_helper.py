@@ -34,7 +34,7 @@ def download(name: str, url: str, path: str, md5: Optional[str] = None, tool: st
     if need_download:
         if tool == "wget":
             print("Downloading [%s] to [%s]..." % (url, path))
-            wget.download(url, path)
+            os.system("wget %s -O %s" % (url, os.path.abspath(path)))
         else:
             raise NotImplementedError("Unknown tool [%s]!!!" % tool)
 
