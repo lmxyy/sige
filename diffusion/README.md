@@ -115,7 +115,7 @@ Note:
 
 ### Progressive Distillation
 
-We provide [![colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lmxyy/sige/blob/main/diffusion/progressive_disillation.ipynb) to quickly test Progressive Distillation model with SIGE.
+We provide [![colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lmxyy/sige/blob/main/diffusion/progressive_distillation.ipynb) to quickly test Progressive Distillation model with SIGE.
 
 #### Quality Results
 
