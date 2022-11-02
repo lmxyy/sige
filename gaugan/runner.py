@@ -60,17 +60,20 @@ class Runner:
         model = model.to(opt.device)
         model.eval()
 
+        return model
+
+    def get_dataloader(self) -> DataLoader:
+        opt = self.opt
         dataset = CityscapesDataset(opt)
         dataloader = DataLoader(dataset, batch_size=1, shuffle=False, num_workers=opt.num_workers)
-        self.dataloader = dataloader
-
-        return model
+        return dataloader
 
     def __init__(self, opt):
         self.opt = opt
         self.device = opt.device
         self.model = self.get_model()
         self.model.eval()
+        self.dataloader = self.get_dataloader()
 
     def get_edges(self, t) -> torch.Tensor:
         edge = torch.zeros(t.size(), dtype=torch.uint8, device=self.device)
