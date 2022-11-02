@@ -33,7 +33,7 @@ def download(name: str, url: str, path: str, md5: Optional[str] = None, tool: st
             else:
                 print("MD5 hash mismatch for [%s]: [%s] v.s. [%s]!!!" % (name, md5_hash(path), md5))
                 print("Removing [%s] and downloading again!!!" % path)
-                shutil.rmtree(path)
+                os.remove(path)
     if need_download:
         if tool == "wget":
             print("Downloading [%s] to [%s]..." % (url, path))
