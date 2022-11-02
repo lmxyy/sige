@@ -39,11 +39,25 @@ if __name__ == "__main__":
             extra_compile_args=extra_compile_args,
         )
         ext_modules.append(cuda_extension)
+
+    with open("README.md", "r") as fh:
+        long_description = fh.read()
+
     setup(
         name="sige",
         author="Muyang Li",
-        author_email="lmxyy1999@foxmail.com",
+        author_email="muyangli@cs.cmu.edu",
         ext_modules=ext_modules,
         packages=["sige"],
         cmdclass={"build_ext": cpp_extension.BuildExtension},
+        install_requires=["torch>=1.7"],
+        url="https://github.com/lmxyy/sige",
+        description="Spatially Incremental Generative Engine (SIGE)",
+        long_description=long_description,
+        long_description_content_type="text/markdown",
+        version="0.1.0",
+        classifiers=[
+            "Programming Language :: Python :: 3",
+            "Operating System :: OS Independent",
+        ],
     )
