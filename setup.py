@@ -1,7 +1,7 @@
 import platform
 
 import torch
-from setuptools import setup
+from setuptools import find_packages, setup
 from torch.utils import cpp_extension
 
 if __name__ == "__main__":
@@ -43,19 +43,22 @@ if __name__ == "__main__":
     with open("README.md", "r") as fh:
         long_description = fh.read()
 
+    fp = open("sige/__version__.py", "r").read()
+    version = eval(fp.strip().split()[-1])
+
     setup(
         name="sige",
         author="Muyang Li",
         author_email="muyangli@cs.cmu.edu",
         ext_modules=ext_modules,
-        packages=["sige"],
+        packages=find_packages(),
         cmdclass={"build_ext": cpp_extension.BuildExtension},
         install_requires=["torch>=1.7"],
         url="https://github.com/lmxyy/sige",
         description="Spatially Incremental Generative Engine (SIGE)",
         long_description=long_description,
         long_description_content_type="text/markdown",
-        version="0.1.3",
+        version=version,
         classifiers=[
             "Programming Language :: Python :: 3",
             "Operating System :: OS Independent",
