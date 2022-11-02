@@ -56,6 +56,8 @@ Specifically,
 
 ## Get Started
 
+We provide [![colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lmxyy/sige/blob/main/gaugan/gaugan.ipynb) to quickly test GauGAN model with SIGE.
+
 ### Quality Results
 
 * Generate images:
