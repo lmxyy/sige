@@ -1,1 +1,1 @@
-include *.h
+include sige/cpu/*.h assets/* sige/nn/*
