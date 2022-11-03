@@ -4,7 +4,7 @@
 
 **[NEW!]** SIGE  is accepted by NeurIPS 2022! Our code and benchmark datasets are publicly available!
 
-![teaser](./assets/teaser.png)
+![teaser](https://github.com/lmxyy/sige/raw/main/assets/teaser.png)
 *We introduce Spatially Sparse Inference, a general-purpose method to selectively perform computations at the edited regions for image editing applications. Our method reduces the computation of DDIM by 4~6x and GauGAN by 15x for the above examples while preserving the image quality. When combined with existing compression methods such as GAN Compression, our method further reduces the computation of GauGAN by 47x.*
 
 Efficient Spatially Sparse Inference for Conditional GANs and Diffusion Models</br>
@@ -14,12 +14,12 @@ In NeurIPS 2022.
 
 ## Overview
 
-![overview](./assets/method.gif)
+![overview](https://github.com/lmxyy/sige/raw/main/assets/method.gif)
 *Tiling-based sparse convolution overview. For each convolution <i>F<sub>l</sub></i> in the network, we wrap it into SIGE Conv<sub><i>l</i></sub>. The activations of the original image are already pre-computed. When getting the edited image, we first compute a difference mask between the original and edited image and reduce the mask to the active block indices to locate the edited regions. In each SIGE Conv<sub><i>l</i></sub>, we directly gather the active blocks from the edited activation <i>A<sub>l</sub></i><sup>edited</sup> according to the reduced indices, stack the blocks along the batch dimension, and feed them into <i>F<sub>l</sub></i>. The gathered blocks have an overlap of width 2 if <i>F<sub>l</sub></i> is 3×3 convolution. After getting the output blocks from <i>F<sub>l</sub></i>, we scatter them back into <i>F<sub>l</sub></i>(<i>A<sub>l</sub></i><sup>original</sup>) to get the edited output, which approximates <i>F<sub>l</sub></i>(<i>A<sub>l</sub></i><sup>edited</sup>).*
 
 ## Performance
 
-![overview](./assets/results.png)
+![overview](https://github.com/lmxyy/sige/raw/main/assets/results.png)
 *With 1.2% editing, SIGE could reduce the computation of DDIM, Progressive Distillation and GauGAN by 7-18x, achieve 2-4x speedup on NVIDIA RTX 3090 and 4-14x on Apple M1 Pro CPU. When combined with GAN Compression, it further reduces 50x computation on GauGAN, achieving 38x speedup on Apple M1 Pro CPU. Please check our paper for more details and results.*
 
 References:
@@ -61,7 +61,7 @@ pip install -e .
 
 ### Usage Example
 
-See [example.py](./example.py) for the minimal SIGE convolution example. Please first install SIGE with the above instructions and [torchprofile](https://github.com/zhijian-liu/torchprofile) with 
+See [example.py](https://github.com/lmxyy/sige/tree/main/example.py) for the minimal SIGE convolution example. Please first install SIGE with the above instructions and [torchprofile](https://github.com/zhijian-liu/torchprofile) with 
 
 ```shell
 pip install torchprofile wget
@@ -77,9 +77,9 @@ We also have [![colab](https://colab.research.google.com/assets/colab-badge.svg)
 
 ### Benchmark
 
-To benchmark and reproduce the results of [DDIM](https://github.com/ermongroup/ddim) and [Progressive Distillation](https://github.com/google-research/google-research/tree/master/diffusion_distillation) or download the LSUN Church editing datasets, please follow the instructions in [diffusion/README.md](./diffusion/README.md).
+To benchmark and reproduce the results of [DDIM](https://github.com/ermongroup/ddim) and [Progressive Distillation](https://github.com/google-research/google-research/tree/master/diffusion_distillation) or download the LSUN Church editing datasets, please follow the instructions in [diffusion/README.md](https://github.com/lmxyy/sige/tree/main/diffusion/README.md).
 
-To benchmark and reproduce the results of [GauGAN](https://github.com/NVlabs/SPADE) and [GAN Compression](https://github.com/mit-han-lab/gan-compression) or download the Cityscapes editing datasets, please follow the instructions in [gaugan/README.md](./gaugan/README.md).
+To benchmark and reproduce the results of [GauGAN](https://github.com/NVlabs/SPADE) and [GAN Compression](https://github.com/mit-han-lab/gan-compression) or download the Cityscapes editing datasets, please follow the instructions in [gaugan/README.md](https://github.com/lmxyy/sige/tree/main/gaugan/README.md).
 
 ## Citation
 

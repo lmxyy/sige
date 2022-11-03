@@ -3,9 +3,7 @@ import platform
 import torch
 from setuptools import find_packages, setup
 from torch.utils import cpp_extension
-from torchvision.models import mobilenetv2
 
-mobilenetv2(pretrained=True)
 
 if __name__ == "__main__":
     extra_compile_args = {"cxx": ["-g", "-O3", "-lgomp"], "nvcc": ["-O3"]}
@@ -43,10 +41,8 @@ if __name__ == "__main__":
         )
         ext_modules.append(cuda_extension)
 
-    with open("README.md", "r") as fh:
-        long_description = fh.read()
-    long_description.replace("(./assets", "https://github.com/lmxyy/sige/raw/main/assets")
-    long_description.replace("(./", "https://github.com/lmxyy/sige/tree/main/")
+    with open("README.md", "r") as f:
+        long_description = f.read()
 
     fp = open("sige/__version__.py", "r").read()
     version = eval(fp.strip().split()[-1])
@@ -68,4 +64,5 @@ if __name__ == "__main__":
             "Programming Language :: Python :: 3",
             "Operating System :: OS Independent",
         ],
+        include_package_data=True
     )
