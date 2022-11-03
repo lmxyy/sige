@@ -34,7 +34,7 @@ def download(name: str, url: str, path: str, md5: Optional[str] = None, tool: st
                 print("Removing [%s] and downloading again!!!" % path)
                 os.remove(path)
     if need_download:
-        if tool == "wget":
+        if tool == "torch":
             print("Downloading [%s] to [%s]..." % (url, path))
             download_url_to_file(url, path)
         elif tool == "gdown":
