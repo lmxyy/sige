@@ -42,6 +42,8 @@ if __name__ == "__main__":
 
     with open("README.md", "r") as fh:
         long_description = fh.read()
+    long_description.replace("(./assets", "https://github.com/lmxyy/sige/raw/main/assets")
+    long_description.replace("(./", "https://github.com/lmxyy/sige/tree/main/")
 
     fp = open("sige/__version__.py", "r").read()
     version = eval(fp.strip().split()[-1])
