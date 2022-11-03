@@ -1,9 +1,8 @@
 import hashlib
 import os
-import shutil
 from typing import Optional
 
-import wget
+from torch.hub import download_url_to_file
 
 MD5_MAP = {
     "church128-pd-unet.pth": "8a2690eb25d1e2b5367e9574d7b73822",
@@ -20,7 +19,7 @@ def md5_hash(path):
     return hashlib.md5(content).hexdigest()
 
 
-def download(name: str, url: str, path: str, md5: Optional[str] = None, tool: str = "wget"):
+def download(name: str, url: str, path: str, md5: Optional[str] = None, tool: str = "torch"):
     os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
     need_download = True
     if os.path.exists(path):
@@ -34,7 +33,7 @@ def download(name: str, url: str, path: str, md5: Optional[str] = None, tool: st
     if need_download:
         if tool == "wget":
             print("Downloading [%s] to [%s]..." % (url, path))
-            os.system("wget %s -O %s" % (url, os.path.abspath(path)))
+            download_url_to_file(url, path)
         else:
             raise NotImplementedError("Unknown tool [%s]!!!" % tool)
 

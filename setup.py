@@ -3,6 +3,9 @@ import platform
 import torch
 from setuptools import find_packages, setup
 from torch.utils import cpp_extension
+from torchvision.models import mobilenetv2
+
+mobilenetv2(pretrained=True)
 
 if __name__ == "__main__":
     extra_compile_args = {"cxx": ["-g", "-O3", "-lgomp"], "nvcc": ["-O3"]}

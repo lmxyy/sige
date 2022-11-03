@@ -3,8 +3,7 @@ import os
 from typing import Optional
 
 import gdown
-import wget
-import shutil
+from torch.hub import download_url_to_file
 
 MD5_MAP = {
     "spade.pth": "21b8b5b29295b7208ba5cb48d818a367",
@@ -23,7 +22,7 @@ def md5_hash(path):
     return hashlib.md5(content).hexdigest()
 
 
-def download(name: str, url: str, path: str, md5: Optional[str] = None, tool: str = "wget"):
+def download(name: str, url: str, path: str, md5: Optional[str] = None, tool: str = "torch"):
     os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
     need_download = True
     if os.path.exists(path):
@@ -37,7 +36,7 @@ def download(name: str, url: str, path: str, md5: Optional[str] = None, tool: st
     if need_download:
         if tool == "wget":
             print("Downloading [%s] to [%s]..." % (url, path))
-            os.system("wget %s -O %s" % (url, os.path.abspath(path)))
+            download_url_to_file(url, path)
         elif tool == "gdown":
             gdown.download(url, path)
         else:
