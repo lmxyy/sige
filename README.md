@@ -9,7 +9,7 @@
 
 Efficient Spatially Sparse Inference for Conditional GANs and Diffusion Models</br>
 [Muyang Li](https://lmxyy.me/), [Ji Lin](http://linji.me/), [Chenlin Meng](https://cs.stanford.edu/~chenlin/), [Stefano Ermon](https://cs.stanford.edu/~ermon/), [Song Han](https://songhan.mit.edu/), and [Jun-Yan Zhu](https://www.cs.cmu.edu/~junyanz/)</br>
-CMU, MIT and Stanford</br>
+CMU, MIT, and Stanford</br>
 In NeurIPS 2022. 
 
 ## Overview
@@ -50,7 +50,7 @@ After installing [PyTorch](https://pytorch.org), you should be able to install S
 pip install sige
 ```
 
-or via github
+or via GitHub:
 
 ```shell
 pip install git+https://github.com/lmxyy/sige.git
@@ -82,9 +82,9 @@ We also have [![colab](https://colab.research.google.com/assets/colab-badge.svg)
 
 ### Benchmark
 
-To benchmark and reproduce the results of [DDIM](https://github.com/ermongroup/ddim) and [Progressive Distillation](https://github.com/google-research/google-research/tree/master/diffusion_distillation) or download the LSUN Church editing datasets, please follow the instructions in [diffusion/README.md](https://github.com/lmxyy/sige/tree/main/diffusion/README.md).
+To reproduce the results of [DDIM](https://github.com/ermongroup/ddim) and [Progressive Distillation](https://github.com/google-research/google-research/tree/master/diffusion_distillation) or download the LSUN Church editing datasets, please follow the instructions in [diffusion/README.md](https://github.com/lmxyy/sige/tree/main/diffusion/README.md).
 
-To benchmark and reproduce the results of [GauGAN](https://github.com/NVlabs/SPADE) and [GAN Compression](https://github.com/mit-han-lab/gan-compression) or download the Cityscapes editing datasets, please follow the instructions in [gaugan/README.md](https://github.com/lmxyy/sige/tree/main/gaugan/README.md).
+To reproduce the results of [GauGAN](https://github.com/NVlabs/SPADE) and [GAN Compression](https://github.com/mit-han-lab/gan-compression) or download the Cityscapes editing datasets, please follow the instructions in [gaugan/README.md](https://github.com/lmxyy/sige/tree/main/gaugan/README.md).
 
 ## Citation
 
