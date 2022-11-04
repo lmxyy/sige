@@ -24,6 +24,7 @@ def get_args():
     parser.add_argument("--warmup_times", type=int, default=200)
     parser.add_argument("--test_times", type=int, default=200)
 
+    parser.add_argument("--download_tool", type=str, default="torch_hub", choices=("gdown", "torch_hub"))
     args = parser.parse_args()
     return args
 

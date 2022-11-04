@@ -1,22 +1,37 @@
+import argparse
 import os
-import sys
-
-from download_helper import download
 import zipfile
 
+from download_helper import download
+
 NAME = "cityscapes-edit.zip"
-BASE_URL = "https://www.cs.cmu.edu/~sige/resources/datasets"
-MD5 = "f51ca362c4f7f0f733132ff9fe24613c"
+BASE_URL = "https://www.cs.cmu.edu/~sige/resources/datasets/"
+GDOWN_URL = "https://drive.google.com/u/0/uc?id=1J4eeKq4c34CeoQ0jwSVkHlHQeYHbY4g3"
+MD5 = "149d28096a94cfb48210e5950ffa613a"
+
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--root", type=str, default="database", help="root directory to save the dataset")
+    parser.add_argument("--tool", type=str, default="torch_hub", choices=("torch_hub", "gdown"), help="download tool")
+    args = parser.parse_args()
+    return args
+
 
 if __name__ == "__main__":
-    assert len(sys.argv) <= 2, "Usage: python download_dataset.py [root]"
-    if len(sys.argv) == 2:
-        root = sys.argv[1]
-    else:
-        root = "database"
+    args = get_args()
+    root = args.root
     os.makedirs(os.path.join(root, os.path.splitext(NAME)[0]), exist_ok=True)
     path = os.path.join(root, NAME)
-    download(NAME, os.path.join(BASE_URL, NAME), path, MD5)
-    print('Finished downloading. Extracting...')
+
+    tool = args.tool
+    if tool == "torch_hub":
+        url = os.path.join(BASE_URL, NAME)
+    elif tool == "gdown":
+        url = GDOWN_URL
+    else:
+        raise NotImplementedError("Unknown tool [%s]!!!" % tool)
+    download(NAME, url, path, MD5, tool=tool)
+    print("Finished downloading. Extracting...")
     with zipfile.ZipFile(path, "r") as zip_ref:
         zip_ref.extractall(os.path.join(root, os.path.splitext(NAME)[0]))

@@ -10,7 +10,11 @@ MD5_MAP = {
     "church256-ddim-fused_unet.pth": "fb3e26e5e6be812d6bed5c48e5265506",
     "church256-ddim-unet.pth": "8fbd43a27e98e64b56453faca9be619e",
 }
-
+GDOWN_URLs = {
+    "church128-pd-unet.pth": "https://drive.google.com/u/0/uc?id=12kotBI8V1Cv2tmUt6I-fwjD_x63Rhmhs",
+    "church256-ddim-fused_unet.pth": "https://drive.google.com/u/0/uc?id=1DEKOPquaPOsMSx0iskA73VtzVqVg_oHO",
+    "church256-ddim-unet.pth": "https://drive.google.com/u/0/uc?id=1YiEO85VvV2OJbr1ueZomznyL_pO9Lmwy",
+}
 BASE_URL = "https://www.cs.cmu.edu/~sige/resources/models/diffusion"
 
 
@@ -41,7 +45,7 @@ def download(name: str, url: str, path: str, md5: Optional[str] = None, tool: st
             raise NotImplementedError("Unknown tool [%s]!!!" % tool)
 
 
-def get_ckpt_path(config, root="pretrained", check=True):
+def get_ckpt_path(config, root="pretrained", check=True, tool="torch_hub"):
     network = config.model.network
     if network == "ddim.unet":
         name = "church256-ddim-unet.pth"
@@ -52,5 +56,11 @@ def get_ckpt_path(config, root="pretrained", check=True):
     else:
         raise NotImplementedError("Unknown network [%s]!!!" % network)
     path = os.path.join(root, name)
-    download(name, os.path.join(BASE_URL, name), path, MD5_MAP[name] if check else None)
+    if tool == "torch_hub":
+        url = os.path.join(BASE_URL, name)
+    elif tool == "gdown":
+        url = GDOWN_URLs[name]
+    else:
+        raise NotImplementedError("Unknown tool [%s]!!!" % tool)
+    download(name, url, path, MD5_MAP[name] if check else None, tool=tool)
     return path

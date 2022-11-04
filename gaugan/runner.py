@@ -51,7 +51,7 @@ class Runner:
 
         # load network
         if opt.use_pretrained:
-            pretrained_path = get_ckpt_path(opt)
+            pretrained_path = get_ckpt_path(opt, tool=opt.tool)
             if opt.restore_from is not None:
                 warnings.warn("The model path will be overriden to [%s]!!!" % pretrained_path)
             opt.restore_from = pretrained_path
