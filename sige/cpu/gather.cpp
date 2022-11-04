@@ -40,7 +40,7 @@ void gather_cpu_kernel(
                                     shiftB, shiftC, shiftH, shiftW,
                                     bb, cc, hh, ww);
                         }
-                        output[index] = activation(activationType, z);
+                        z = activation(activationType, z);
                         if (activationFirst) {
                             z = binary_op_array<MUL>(
                                     scale, z,
