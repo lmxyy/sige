@@ -26,9 +26,7 @@ In NeurIPS 2022.
 
 ### Quality
 
-![overview](https://github.com/lmxyy/sige/raw/main/assets/quality.png)
-
-*Qualitative results under different edit sizes. PD is Progressive Distillation. Our method well preserves the visual fidelity of the original model without losing global context.*
+![overview](https://github.com/lmxyy/sige/raw/main/assets/quality.png)*Qualitative results under different edit sizes. PD is Progressive Distillation. Our method well preserves the visual fidelity of the original model without losing global context.*
 
 References:
 
