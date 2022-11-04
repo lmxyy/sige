@@ -98,9 +98,9 @@ If you use this code for your research, please cite our paper.
 }
 ```
 
-## Acknowledgements
+## Acknowledgments
 
-Our code is developed based on [SDEdit](https://github.com/ermongroup/SDEdit), [ddim](https://github.com/ermongroup/ddim), [diffusion_distillation](https://github.com/google-research/google-research/tree/master/diffusion_distillation) and [gan-compression](https://github.com/mit-han-lab/gan-compression). We refer to [sbnet](https://github.com/uber-research/sbnet) and [torchsparse](https://github.com/mit-han-lab/torchsparse) for the tiling-based sparse convolution algorithm implementation.
+Our code is developed based on [SDEdit](https://github.com/ermongroup/SDEdit), [ddim](https://github.com/ermongroup/ddim), [diffusion_distillation](https://github.com/google-research/google-research/tree/master/diffusion_distillation) and [gan-compression](https://github.com/mit-han-lab/gan-compression). We refer to [sbnet](https://github.com/uber-research/sbnet) for the tiling-based sparse convolution algorithm implementation. Our work is also inspired by the gather/scatter implementations in [torchsparse](https://github.com/mit-han-lab/torchsparse).
 
 We also thank [torchprofile](https://github.com/zhijian-liu/torchprofile) for MACs measurement, [clean-fid](https://github.com/GaParmar/clean-fid) for FID computation and [drn](https://github.com/fyu/drn) for Cityscapes mIoU computation.
 
