@@ -2,10 +2,9 @@ import argparse
 
 import numpy as np
 import torch
-import wget  # noqa
 from torchprofile import profile_macs
 
-from sige.nn import Gather, SIGEConv2d, SIGEModel, SIGEModule, Scatter
+from sige.nn import Gather, Scatter, SIGEConv2d, SIGEModel, SIGEModule
 
 
 class ExampleModule(SIGEModule):

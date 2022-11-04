@@ -69,7 +69,7 @@ pip install -e .
 See [example.py](https://github.com/lmxyy/sige/tree/main/example.py) for the minimal SIGE convolution example. Please first install SIGE with the above instructions and [torchprofile](https://github.com/zhijian-liu/torchprofile) with 
 
 ```shell
-pip install torchprofile wget
+pip install torchprofile
 ```
 
 Then you can run it with
