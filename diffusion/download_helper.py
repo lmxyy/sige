@@ -2,6 +2,7 @@ import hashlib
 import os
 from typing import Optional
 
+import gdown
 from torch.hub import download_url_to_file
 
 MD5_MAP = {
@@ -19,7 +20,7 @@ def md5_hash(path):
     return hashlib.md5(content).hexdigest()
 
 
-def download(name: str, url: str, path: str, md5: Optional[str] = None, tool: str = "torch"):
+def download(name: str, url: str, path: str, md5: Optional[str] = None, tool: str = "torch_hub"):
     os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
     need_download = True
     if os.path.exists(path):
@@ -31,9 +32,11 @@ def download(name: str, url: str, path: str, md5: Optional[str] = None, tool: st
                 print("Removing [%s] and downloading again!!!" % path)
                 os.remove(path)
     if need_download:
-        if tool == "torch":
+        if tool == "torch_hub":
             print("Downloading [%s] to [%s]..." % (url, path))
             download_url_to_file(url, path)
+        elif tool == "gdown":
+            gdown.download(url, path)
         else:
             raise NotImplementedError("Unknown tool [%s]!!!" % tool)
 
