@@ -10,7 +10,7 @@
 Efficient Spatially Sparse Inference for Conditional GANs and Diffusion Models</br>
 [Muyang Li](https://lmxyy.me/), [Ji Lin](http://linji.me/), [Chenlin Meng](https://cs.stanford.edu/~chenlin/), [Stefano Ermon](https://cs.stanford.edu/~ermon/), [Song Han](https://songhan.mit.edu/), and [Jun-Yan Zhu](https://www.cs.cmu.edu/~junyanz/)</br>
 CMU, MIT, and Stanford</br>
-In NeurIPS 2022. 
+In NeurIPS 2022.
 
 ## Overview
 
@@ -66,7 +66,7 @@ pip install -e .
 
 ### Usage Example
 
-See [example.py](https://github.com/lmxyy/sige/tree/main/example.py) for the minimal SIGE convolution example. Please first install SIGE with the above instructions and [torchprofile](https://github.com/zhijian-liu/torchprofile) with 
+See [example.py](https://github.com/lmxyy/sige/tree/main/example.py) for the minimal SIGE convolution example. Please first install SIGE with the above instructions and [torchprofile](https://github.com/zhijian-liu/torchprofile) with
 
 ```shell
 pip install torchprofile
@@ -89,6 +89,7 @@ To reproduce the results of [GauGAN](https://github.com/NVlabs/SPADE) and [GAN C
 ## Citation
 
 If you use this code for your research, please cite our paper.
+
 ```bibtex
 @inproceedings{li2022efficient,
   title={Efficient Spatially Sparse Inference for Conditional GANs and Diffusion Models},

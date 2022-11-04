@@ -20,7 +20,7 @@
   ```shell
   conda install pandas autopep8
   conda install tqdm -c conda-forge
-  pip install blobfile torchprofile pyyaml lmdb clean-fid opencv-python gdown easydict dominate wget scikit-image lpips
+  pip install blobfile torchprofile pyyaml lmdb clean-fid opencv-python gdown easydict dominate scikit-image lpips
   ```
 
 * Install SIGE following [../README.md](../README.md#installation).
@@ -83,6 +83,7 @@ We provide [![colab](https://colab.research.google.com/assets/colab-badge.svg)](
   --config_str 32_32_32_48_32_24_24_32 --use_pretrained \
   --num_sparse_layers 4
   ```
+
   Note:
   
   * The results will be saved in the directory specified with `--save_dir`. For the generated results, `$id_synthetic.png` means using the synthetic map `$id` as the edited input and the corresponding ground-truth map as the original input. `$id_gt.png` means using the synthetic map `$id` as the original input and the corresponding ground-truth map as the edited input.
@@ -105,7 +106,7 @@ We provide [![colab](https://colab.research.google.com/assets/colab-badge.svg)](
     Note:
 
     * By default, these commands will compute the metrics against the ground-truth images. If you want to compute the metrics against the images of the original model, please specify the directory of the original model results with `--ref_root` and `--mode original`.
-    * If you want to compute the metrics only at the edited regions, you could specify the mask root with `--mask_root database/cityscapes-edit/masks `.
+    * If you want to compute the metrics only at the edited regions, you could specify the mask root with `--mask_root database/cityscapes-edit/masks`.
 
   * FID:
 
@@ -119,9 +120,7 @@ We provide [![colab](https://colab.research.google.com/assets/colab-badge.svg)](
     python get_metric.py --metric miou --image_root $PATH_TO_YOUR_GENERATED_IMAGES
     ```
 
-    You could also specify the mask root with `--mask_root database/cityscapes-edit/masks ` to compute the mIoU only at the edited regions.
-
-
+    You could also specify the mask root with `--mask_root database/cityscapes-edit/masks` to compute the mIoU only at the edited regions.
 
 ### Efficiency Results
 
@@ -155,4 +154,4 @@ Note:
   * View the groud-truth map as the original input and the synthetic map as the edited input.
   * View the synthetic map as the original input and the ground-truth map as the edited input.
 
-  As the symmetric editing shares the same editing regions, so it wil not affect the efficiency results. 
+  As the symmetric editing shares the same editing regions, so it wil not affect the efficiency results.
