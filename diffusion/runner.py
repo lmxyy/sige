@@ -87,7 +87,7 @@ class Runner:
         args, config = self.args, self.config
         model, ema_helper = self.build_model()
         if args.use_pretrained:
-            pretrained_path = get_ckpt_path(config, tool=args.tool)
+            pretrained_path = get_ckpt_path(config, tool=args.download_tool)
             if args.restore_from is not None:
                 warnings.warn("The model path will be overriden to [%s]!!!" % pretrained_path)
             args.restore_from = pretrained_path

@@ -67,6 +67,7 @@ def get_args():
     parser.add_argument("--dont_save_label", action="store_true")
     parser.add_argument("--verbose", action="store_true")
 
+    parser.add_argument("--download_tool", type=str, default="torch_hub", choices=("gdown", "torch_hub"))
     args = parser.parse_args()
     args.semantic_nc = args.input_nc + (0 if args.no_instance else 1)
     return args
