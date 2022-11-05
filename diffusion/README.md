@@ -58,34 +58,23 @@ We provide [![colab](https://colab.research.google.com/assets/colab-badge.svg)](
 
 #### Quality Results
 
-* Generate images:
+You could generate images with the following commands:
 
-  ```shell
-  # For Vanilla DDIM
-  python test.py \
-  --config_path configs/church_ddim256-original.yml \
-  --use_pretrained --save_dir results/vanilla_ddim
-  
-  # For DDIM with SIGE
-  python test.py \
-  --config_path configs/church_ddim256-sige.yml \
-  --use_pretrained --save_dir results/sige_ddim
-  ```
+```shell
+# For Vanilla DDIM
+python test.py \
+--config_path configs/church_ddim256-original.yml \
+--use_pretrained --save_dir results/vanilla_ddim
 
-  The generated images will be stored in `results/vanilla_ddim` and `results/sige_ddim` correspondingly.
+# For DDIM with SIGE
+python test.py \
+--config_path configs/church_ddim256-sige.yml \
+--use_pretrained --save_dir results/sige_ddim
+```
 
-  **Notice**: For SIGE inference, current codebase only supports caching the activations of a single step. As the diffusion models require multiple denoising steps, for each step, we first forward use the original model to pre-compute the activations and then forward the SIGE model to get the results.
+The generated images will be stored in `results/vanilla_ddim` and `results/sige_ddim` correspondingly.
 
-* Metric Measurement:
-
-  ```shell
-  # FID
-  python get_metric.py --metric fid --root $PATH_TO_GENERATED_IMAGE_DIRECTORY
-  python --metric fid --root $PATH_TO_GENERATED_IMAGE_DIRECTORY
-  
-  # PSNR
-  python --metric fid 
-  ```
+**Notice**: For SIGE inference, current codebase only supports caching the activations of a single step. As the diffusion models require multiple denoising steps, for each step, we first forward use the original model to pre-compute the activations and then forward the SIGE model to get the results.
   
 #### Efficient Results
 
@@ -116,23 +105,23 @@ We provide [![colab](https://colab.research.google.com/assets/colab-badge.svg)](
 
 #### Quality Results
 
-* Generate images:
+You could generate images with the following commands:
 
-  ```shell
-  # For Vanilla Progressive Distillation
-  python test.py \
-  --config_path configs/church_pd128-original.yml \
-  --use_pretrained --save_dir results/vanilla_pd
-  
-  # For Progressive Distllation with SIGE
-  python test.py \
-  --config_path configs/church_pd128-sige.yml \
-  --use_pretrained --save_dir results/sige_pd
-  ```
+```shell
+# For Vanilla Progressive Distillation
+python test.py \
+--config_path configs/church_pd128-original.yml \
+--use_pretrained --save_dir results/vanilla_pd
 
-  The generated images will be stored in `results/vanilla_pd` and `results/sige_pd` correspondingly.
+# For Progressive Distllation with SIGE
+python test.py \
+--config_path configs/church_pd128-sige.yml \
+--use_pretrained --save_dir results/sige_pd
+```
 
-  **Notice**: For SIGE inference, current codebase only supports caching the activations of a single step. As the diffusion models require multiple denoising steps, for each step, we first forward use the original model to pre-compute the activations and then forward the SIGE model to get the results.
+The generated images will be stored in `results/vanilla_pd` and `results/sige_pd` correspondingly.
+
+**Notice**: For SIGE inference, current codebase only supports caching the activations of a single step. As the diffusion models require multiple denoising steps, for each step, we first forward use the original model to pre-compute the activations and then forward the SIGE model to get the results.
 
 #### Efficient Results
 
