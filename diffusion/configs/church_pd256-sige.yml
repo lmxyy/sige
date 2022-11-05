@@ -36,7 +36,7 @@ model:
 sampling:
   batch_size: 128
   eps: 0.02
-  mask_dilate_radius: 2
+  mask_dilate_radius: 5
   noise_level: 5
   sample_steps: 5
   sampler_type: pd
