@@ -18,9 +18,8 @@
 * Install other dependencies:
 
   ```shell
-  conda install pandas autopep8
   conda install tqdm -c conda-forge
-  pip install blobfile torchprofile pyyaml lmdb clean-fid opencv-python gdown easydict dominate scikit-image lpips
+  pip install torchprofile pyyaml gdown easydict
   ```
 
 * Install SIGE following [../README.md](../README.md#installation).
