@@ -44,7 +44,7 @@ References:
 
 ### Installation
 
-After installing [PyTorch](https://pytorch.org), you should be able to install SIGE with PyPI
+After installing [PyTorch](https://pytorch.org), you should be able to install SIGE with PyPI：
 
 ```shell
 pip install sige
@@ -56,7 +56,7 @@ or via GitHub:
 pip install git+https://github.com/lmxyy/sige.git
 ```
 
-or locally for development
+or locally for development:
 
 ```shell
 git clone git@github.com:lmxyy/sige.git
