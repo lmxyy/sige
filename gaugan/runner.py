@@ -21,25 +21,25 @@ class Runner:
 
         config = None
         if netG == "spade":
-            from gaugan.models.spade_generators.spade_generator import SPADEGenerator as Model
+            from models.spade_generators.spade_generator import SPADEGenerator as Model
         elif netG == "fused_spade":
-            from gaugan.models.spade_generators.fused_spade_generator import FusedSPADEGenerator as Model
+            from models.spade_generators.fused_spade_generator import FusedSPADEGenerator as Model
         elif netG == "sige_fused_spade":
-            from gaugan.models.spade_generators.sige_fused_spade_generator import SIGEFusedSPADEGenerator as Model
+            from models.spade_generators.sige_fused_spade_generator import SIGEFusedSPADEGenerator as Model
         elif netG == "sub_mobile_spade":
-            from gaugan.models.sub_mobile_spade_generators.sub_mobile_spade_generator import (
+            from models.sub_mobile_spade_generators.sub_mobile_spade_generator import (
                 SubMobileSPADEGenerator as Model,
             )
 
             config = decode_config(opt.config_str)
         elif netG == "fused_sub_mobile_spade":
-            from gaugan.models.sub_mobile_spade_generators.fused_sub_mobile_spade_generator import (
+            from models.sub_mobile_spade_generators.fused_sub_mobile_spade_generator import (
                 FusedSubMobileSPADEGenerator as Model,
             )
 
             config = decode_config(opt.config_str)
         elif netG == "sige_fused_sub_mobile_spade":
-            from gaugan.models.sub_mobile_spade_generators.sige_fused_sub_mobile_spade_generator import (
+            from models.sub_mobile_spade_generators.sige_fused_sub_mobile_spade_generator import (
                 SIGEFusedSubMobileSPADEGenerator as Model,
             )
 

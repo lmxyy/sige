@@ -19,7 +19,7 @@
 
   ```shell
   conda install tqdm -c conda-forge
-  pip install torchprofile pyyaml gdown easydict
+  pip install torchprofile pyyaml gdown easydict scikit-image lpips clean-fid opencv-python
   ```
 
 * Install SIGE following [../README.md](../README.md#installation).

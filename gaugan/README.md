@@ -18,9 +18,8 @@
 * Install other dependencies:
 
   ```shell
-  conda install pandas autopep8
   conda install tqdm -c conda-forge
-  pip install blobfile torchprofile pyyaml lmdb clean-fid opencv-python gdown easydict dominate scikit-image lpips
+  pip install torchprofile pyyaml gdown easydict scikit-image lpips clean-fid opencv-python
   ```
 
 * Install SIGE following [../README.md](../README.md#installation).
@@ -79,7 +78,7 @@ We provide [![colab](https://colab.research.google.com/assets/colab-badge.svg)](
   
   # GAN Compression with SIGE
   python test.py --netG sige_fused_sub_mobile_spade \
-  --save_dir results/sige_fused_gc --dont_save_label \
+  --save_dir results/sige_gc --dont_save_label \
   --config_str 32_32_32_48_32_24_24_32 --use_pretrained \
   --num_sparse_layers 4
   ```

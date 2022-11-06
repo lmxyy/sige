@@ -47,6 +47,7 @@ def download(name: str, url: str, path: str, md5: Optional[str] = None, tool: st
             gdown.download(url, path)
         else:
             raise NotImplementedError("Unknown download tool [%s]!!!" % tool)
+    return path
 
 
 def get_ckpt_path(opt, root="pretrained", check=True, tool="torch_hub"):
