@@ -20,7 +20,7 @@
   ```shell
   conda install pandas autopep8
   conda install tqdm -c conda-forge
-  pip install blobfile torchprofile pyyaml lmdb clean-fid opencv-python gdown easydict dominate scikit-image lpips
+  pip install blobfile torchprofile pyyaml lmdb clean-fid opencv-python gdown easydict dominate scikit-image lpips dominate
   ```
 
 * Install SIGE following [../README.md](../README.md#installation).

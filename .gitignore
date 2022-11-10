@@ -43,3 +43,4 @@ visualizations/
 cmake-build*
 CMakeLists.txt
 .ipynb_checkpoints/
+viz_html/
