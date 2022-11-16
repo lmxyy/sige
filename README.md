@@ -21,7 +21,7 @@ In NeurIPS 2022.
 ### Efficiency
 
 ![overview](https://github.com/lmxyy/sige/raw/main/assets/results.png)
-*With 1.2% editing, SIGE could reduce the computation of DDIM, Progressive Distillation and GauGAN by 7-18x, achieve 2-4x speedup on NVIDIA RTX 3090 and 4-14x on Apple M1 Pro CPU. When combined with GAN Compression, it further reduces 50x computation on GauGAN, achieving 38x speedup on Apple M1 Pro CPU. Please check our paper for more details and results.*
+*With 1.2% edits, SIGE could reduce the computation of DDIM, Progressive Distillation and GauGAN by 7-18x, achieve 2-4x speedup on NVIDIA RTX 3090 and 4-14x on Apple M1 Pro CPU. When combined with GAN Compression, it further reduces 50x computation on GauGAN, achieving 38x speedup on Apple M1 Pro CPU. Please check our paper for more details and results.*
 
 ### Quality
 
