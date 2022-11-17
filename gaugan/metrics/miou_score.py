@@ -200,7 +200,7 @@ def get_miou(parser: argparse.ArgumentParser):
     parser.add_argument("--image_root", type=str, required=True)
     parser.add_argument("--data_root", type=str, default="database/cityscapes-edit")
     parser.add_argument("--mask_root", type=str, default=None)
-    parser.add_argument("--model_path", type=str, default="drn-d-105_ms_cityscapes.pth")
+    parser.add_argument("--model_path", type=str, default="pretrained/drn-d-105_ms_cityscapes.pth")
     parser.add_argument("--device", type=str, default=None, choices=("cpu", "cuda"))
     args = parser.parse_args()
 
