@@ -5,11 +5,11 @@
 **[NEW!]** SIGE  is accepted by NeurIPS 2022! Our code and benchmark datasets are publicly available!
 
 ![teaser](https://github.com/lmxyy/sige/raw/main/assets/teaser.png)
-*We introduce Spatially Sparse Inference, a general-purpose method to selectively perform computations at the edited regions for image editing applications. Our method reduces the computation of DDIM by 4~6x and GauGAN by 15x for the above examples while preserving the image quality. When combined with existing compression methods such as GAN Compression, our method further reduces the computation of GauGAN by 47x.*
+*We introduce Spatially Sparse Inference, a general-purpose method to selectively perform computations at the edited regions for image editing applications. Our method reduces the computation of [DDIM](https://github.com/ermongroup/ddim) by 4~6x and [GauGAN](https://github.com/NVlabs/SPADE) by 15x for the above examples while preserving the image quality. When combined with existing compression methods such as [GAN Compression](https://github.com/mit-han-lab/gan-compression), our method further reduces the computation of [GauGAN](https://github.com/NVlabs/SPADE) by 47x.*
 
 ![stable-diffusion](https://github.com/lmxyy/sige/raw/main/assets/stable-diffusion.png)
 
-On Stable-Diffusion, we also have a 7x computation reduction and speedup on NVIDIA RTX 3090.
+On [Stable Diffusion](https://github.com/CompVis/stable-diffusion)+[SDEdit](https://github.com/ermongroup/SDEdit), we also have a 7x computation reduction and speedup on NVIDIA RTX 3090.
 
 Efficient Spatially Sparse Inference for Conditional GANs and Diffusion Models</br>
 [Muyang Li](https://lmxyy.me/), [Ji Lin](http://linji.me/), [Chenlin Meng](https://cs.stanford.edu/~chenlin/), [Stefano Ermon](https://cs.stanford.edu/~ermon/), [Song Han](https://songhan.mit.edu/), and [Jun-Yan Zhu](https://www.cs.cmu.edu/~junyanz/)</br>
