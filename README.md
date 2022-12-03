@@ -98,7 +98,7 @@ If you use this code for your research, please cite our paper.
 @inproceedings{li2022efficient,
   title={Efficient Spatially Sparse Inference for Conditional GANs and Diffusion Models},
   author={Li, Muyang and Lin, Ji and Meng, Chenlin and Ermon, Stefano and Han, Song and Zhu, Jun-Yan},
-  booktitle={NeurIPS},
+  booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
   year={2022}
 }
 ```
