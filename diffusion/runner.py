@@ -110,7 +110,7 @@ class Runner:
     def get_sampling_sequence(self, noise_level=None):
         config = self.config
         if noise_level is None:
-            noise_level = self.config.total_steps
+            noise_level = self.config.sampling.total_steps
 
         skip_type = config.sampling.skip_type
         timesteps = config.sampling.sample_steps
