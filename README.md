@@ -31,7 +31,9 @@ In NeurIPS 2022.
 
 ![overview](https://github.com/lmxyy/sige/raw/main/assets/quality.png)*Qualitative results under different edit sizes. PD is Progressive Distillation. Our method well preserves the visual fidelity of the original model without losing global context.*
 
-![quality-stable-diffusion](https://github.com/lmxyy/sige/raw/main/assets/quality-stable-diffusion.png)
+![quality-stable-diffusion](https://github.com/lmxyy/sige/raw/main/assets/quality-stable-diffusion.jpg)
+
+*More qualitative results of Stable Diffusion on both image inpainting and image editing, measured on NVIDIA RTX 3090.*
 
 References:
 
@@ -39,6 +41,7 @@ References:
 * Progressive Distillation for Fast Sampling of Diffusion Models, Salimans et al., ICLR 2022
 * Semantic Image Synthesis with Spatially-Adaptive Normalization (GauGAN), Park et al., CVPR 2019
 * GAN Compression: Efficient Architectures for Interactive Conditional GANs, Li et al., CVPR 2020
+* High-Resolution Image Synthesis with Latent Diffusion Models, Rombach et al., CVPR 2022
 
 ## Prerequisites
 
