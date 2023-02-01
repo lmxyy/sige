@@ -33,7 +33,7 @@ In NeurIPS 2022.
 
 ![quality-stable-diffusion](https://github.com/lmxyy/sige/raw/main/assets/quality-stable-diffusion.jpg)
 
-*More qualitative results of Stable Diffusion on both image inpainting and image editing, measured on NVIDIA RTX 3090.*
+*More qualitative results of Stable Diffusion on both image inpainting and editing, measured on NVIDIA RTX 3090.*
 
 References:
 
