@@ -74,7 +74,7 @@ class Runner:
             model = model.module
         args = self.args
         if args.restore_from is not None:
-            states = torch.load(args.restore_from)
+            states = torch.load(args.restore_from, map_location="cpu")
             model.load_state_dict(states["model"])
             if ema_helper is not None:
                 if "ema" not in states:
