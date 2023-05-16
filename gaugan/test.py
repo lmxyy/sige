@@ -1,6 +1,7 @@
 import argparse
 
 from runner import Runner
+from utils import get_device
 
 
 def get_args():
@@ -61,7 +62,7 @@ def get_args():
     parser.add_argument("--test_times", type=int, default=200)
 
     # Other
-    parser.add_argument("--device", type=str, default="cuda", choices=["cpu", "cuda"])
+    parser.add_argument("--device", type=str, default=None, choices=["cpu", "cuda", "mps"])
     parser.add_argument("--save_dir", type=str, default=None)
     parser.add_argument("--mode", type=str, default="generate", choices=("generate", "profile"))
     parser.add_argument("--dont_save_label", action="store_true")
@@ -75,6 +76,10 @@ def get_args():
 
 def main():
     args = get_args()
+    device = get_device(args.device)
+    print("Using device: %s" % device.type)
+    args.device = device
+
     runner = Runner(args)
     runner.run()
 

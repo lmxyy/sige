@@ -11,9 +11,9 @@
   conda activate sige
   ```
 
-  For Apple M1 Pro CPU results, we used [Intel Anaconda](https://repo.anaconda.com/archive/Anaconda3-2022.10-MacOSX-x86_64.pkg). The M1 Anaconda results are coming soon.
+  For Apple M1 Pro CPU results, we used [Intel Anaconda](https://repo.anaconda.com/archive/Anaconda3-2022.10-MacOSX-x86_64.pkg).
 
-* Install [PyTorch](https://pytorch.org) >= 1.7. To reproduce our paper results, please use PyTorch 1.7.
+* Install [PyTorch](https://pytorch.org). To reproduce our CUDA and CPU results, please use PyTorch 1.7. To enable MPS backend, please install PyTorch>=2.0.
 
 * Install other dependencies:
 
@@ -143,7 +143,7 @@ python test.py --netG sige_fused_sub_mobile_spade --mode profile \
 
 Note:
 
-* By default, these commands will test results on CUDA. For CPU results, you could specify `--device cpu`.
+* By default, these commands will test results on GPU. For CPU results, you could specify `--device cpu`.
 
 * You could specify the test editing sample with `--image_ids`. It also support multiple samples, sperated by white space.
 

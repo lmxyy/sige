@@ -2,7 +2,7 @@
 data:
   data_root: database/church_outdoor_sdedit
   image_size: 256
-  num_workers: 32
+  num_workers: 4
   rescaled: true
 model:
   attn_resolutions:
@@ -19,7 +19,7 @@ model:
   ema: true
   ema_rate: 0.999
   in_ch: 3
-  network: ddim.sige_fused_unet
+  network: ddpm.sige_fused_unet
   num_res_blocks: 2
   out_ch: 3
   resamp_with_conv: true

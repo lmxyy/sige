@@ -2,7 +2,7 @@
 data:
   data_root: database/church_outdoor_sdedit
   image_size: 128
-  num_workers: 32
+  num_workers: 4
   rescaled: true
 model:
   attn_resolutions:

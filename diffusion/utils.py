@@ -1,8 +1,10 @@
 import random
 from argparse import Namespace
+from typing import Optional
 
 import numpy as np
 import torch
+import torch.mps
 from torch.backends import cudnn
 from tqdm import tqdm
 
@@ -81,3 +83,22 @@ def mytqdm(iterable, **kwargs):
         return tqdm(iterable, **kwargs)
     else:
         return iterable
+
+
+def get_device(device: Optional[str] = None) -> torch.device:
+    if device is None:
+        if torch.cuda.is_available():
+            return torch.device("cuda")
+        elif torch.backends.mps.is_available() and torch.backends.mps.is_built():
+            return torch.device("mps")
+        else:
+            return torch.device("cpu")
+    else:
+        return torch.device(device)
+
+
+def device_synchronize(device: torch.device):
+    if device.type == "cuda":
+        torch.cuda.synchronize()
+    elif device.type == "mps":
+        torch.mps.synchronize()

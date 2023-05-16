@@ -1,0 +1,65 @@
+---
+model:
+  base_learning_rate: 0.0001
+  params:
+    channels: 4
+    cond_stage_config:
+      target: ldm.modules.encoders.modules.FrozenCLIPEmbedder
+    cond_stage_key: txt
+    cond_stage_trainable: false
+    conditioning_key: crossattn
+    first_stage_config:
+      params:
+        ddconfig:
+          attn_resolutions: [ ]
+          ch: 128
+          ch_mult:
+            - 1
+            - 2
+            - 4
+            - 4
+          double_z: true
+          dropout: 0
+          in_channels: 3
+          num_res_blocks: 2
+          out_ch: 3
+          resolution: 256
+          z_channels: 4
+        embed_dim: 4
+        lossconfig:
+          target: torch.nn.Identity
+      target: ldm.models.autoencoder.AutoencoderKL
+    first_stage_key: jpg
+    image_size: 64
+    linear_end: 0.0120
+    linear_start: 0.00085
+    log_every_t: 200
+    num_timesteps_cond: 1
+    scale_factor: 0.18215
+    scheduler_config:
+      params:
+        cycle_lengths: [ 10000000000000 ]
+        f_max: [ 1. ]
+        f_min: [ 1. ]
+        f_start: [ 1.e-6 ]
+        warm_up_steps: [ 10000 ]
+      target: ldm.lr_scheduler.LambdaLinearScheduler
+    timesteps: 1000
+    unet_config:
+      params:
+        attention_resolutions: [ 4, 2, 1 ]
+        channel_mult: [ 1, 2, 4, 4 ]
+        context_dim: 768
+        image_size: 32
+        in_channels: 4
+        legacy: false
+        model_channels: 320
+        num_heads: 8
+        num_res_blocks: 2
+        out_channels: 4
+        transformer_depth: 1
+        use_checkpoint: false
+        use_spatial_transformer: true
+      target: ldm.modules.diffusionmodules.openaimodel.UNetModel
+    use_ema: false
+  target: ldm.models.diffusion.ddpm.LatentDiffusion

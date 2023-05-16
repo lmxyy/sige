@@ -3,6 +3,7 @@ import warnings
 from typing import Dict
 
 import torch
+import torch.mps
 from torch import nn
 from torch.utils.data import DataLoader
 from torchprofile import profile_macs
@@ -11,7 +12,7 @@ from cityscapes_dataset import CityscapesDataset
 from download_helper import get_ckpt_path
 from sige.nn import SIGEModel
 from sige.utils import compute_difference_mask, dilate_mask, downsample_mask
-from utils import decode_config, load_network, mytqdm, save_visuals
+from utils import decode_config, load_network, mytqdm, save_visuals, device_synchronize
 
 
 class Runner:
@@ -184,13 +185,11 @@ class Runner:
                     message = "Image %s: MACs %.3fG" % (data["name"][0], macs / 1e9)
                 for _ in mytqdm(range(opt.warmup_times), position=1, desc="Warmup     ", leave=False):
                     model(input_semantics[:1])
-                    if self.device == "cuda":
-                        torch.cuda.synchronize()
+                    device_synchronize(self.device)
                 start_time = time.time()
                 for _ in mytqdm(range(opt.test_times), position=1, desc="Measure    ", leave=False):
                     model(input_semantics[:1])
-                    if self.device == "cuda":
-                        torch.cuda.synchronize()
+                    device_synchronize(self.device)
                 cost_time = time.time() - start_time
                 message += "    Cost Time %.3fs    Avg Time %.3fms" % (cost_time, cost_time / opt.test_times * 1000)
                 pbar_dataloader.write(message + "\n")

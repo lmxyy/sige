@@ -48,16 +48,21 @@ class ExampleModel(SIGEModel):
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--use_cuda", action="store_true", help="use cuda")
+    parser.add_argument("--device", default=None, choices=["cpu", "cuda", "mps"], help="which device to use")
     return parser.parse_args()
 
 
 def main():
     args = get_args()
-    if args.use_cuda:
-        device = torch.device("cuda")
+    if args.device is None:
+        if torch.cuda.is_available():
+            device = torch.device("cuda")
+        elif torch.backends.mps.is_available() and torch.backends.mps.is_built():
+            device = torch.device("mps")
+        else:
+            device = torch.device("cpu")
     else:
-        device = torch.device("cpu")
+        device = torch.device(args.device)
 
     # Get the inputs
     original_input = torch.randn((1, 16, 256, 256), device=device)

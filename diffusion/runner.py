@@ -5,18 +5,19 @@ from typing import Optional
 
 import numpy as np
 import torch
+import torch.mps
 from torch import nn
 from torch.utils.data import DataLoader
 from torchprofile import profile_macs
 from torchvision import utils as tvu
 
-from download_helper import get_ckpt_path
 from datasets import data_transform, get_dataset, inverse_data_transform
+from download_helper import get_ckpt_path
 from models.ema import EMAHelper
 from samplers.base_sampler import BaseSampler
 from sige.nn import SIGEModel
 from sige.utils import compute_difference_mask, dilate_mask, downsample_mask
-from utils import mytqdm, set_seed
+from utils import mytqdm, set_seed, device_synchronize
 
 
 class Runner:
@@ -34,19 +35,21 @@ class Runner:
             from samplers.ddpm_sampler import DDPMSampler as Sampler
         elif sampler_type == "pd":
             from samplers.pd_sampler import PDSampler as Sampler
+        elif sampler_type == "dpm_solver":
+            from samplers.dpm_solver_sampler import DPMSolverSampler as Sampler
         else:
             raise NotImplementedError("Unknown sampler type [%s]!!!" % sampler_type)
         return Sampler(args, config)
 
     def get_model_class(self, network: str):
-        # Architectures for DDPM/DDIM Sampler
-        if network == "ddim.unet":
-            from models.ddim_arch.unet import UNet as Model
-        elif network == "ddim.fused_unet":
-            from models.ddim_arch.fused_unet import FusedUNet as Model
-        elif network == "ddim.sige_fused_unet":
-            from models.ddim_arch.sige_fused_unet import SIGEFusedUNet as Model
-        # Architectures for Progressive Distillation Sammpler
+        # Architectures for DDPM
+        if network == "ddpm.unet":
+            from models.ddpm_arch.unet import UNet as Model
+        elif network == "ddpm.fused_unet":
+            from models.ddpm_arch.fused_unet import FusedUNet as Model
+        elif network == "ddpm.sige_fused_unet":
+            from models.ddpm_arch.sige_fused_unet import SIGEFusedUNet as Model
+        # Architectures for Progressive Distillation Sampler
         elif network == "pd.unet":
             from models.pd_arch.unet import UNet as Model
         elif network == "pd.sige_unet":
@@ -220,13 +223,11 @@ class Runner:
 
                 for _ in mytqdm(range(args.warmup_times), position=1, desc="Warmup     ", leave=False):
                     model(*dummy_inputs)
-                    if self.device.type == "cuda":
-                        torch.cuda.synchronize()
+                    device_synchronize(self.device)
                 start_time = time.time()
                 for _ in mytqdm(range(args.test_times), position=1, desc="Measure    ", leave=False):
                     model(*dummy_inputs)
-                    if self.device.type == "cuda":
-                        torch.cuda.synchronize()
+                    device_synchronize(self.device)
                 cost_time = time.time() - start_time
 
                 if isinstance(model, SIGEModel):

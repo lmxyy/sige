@@ -1,6 +1,5 @@
 import importlib
-from typing import Dict, List, Optional
-from typing import Tuple
+from typing import Dict, List, Optional, Tuple
 
 import torch
 from torch import nn
@@ -11,15 +10,26 @@ class SIGEModule(nn.Module):
     def __init__(self, call_super: bool = True):
         if call_super:
             super(SIGEModule, self).__init__()
-        self.devices: List[str] = ["cpu", "cuda"]
+        self.devices: List[str] = ["cpu", "cuda", "mps"]
         self.supported_dtypes = [torch.float32]
         self.mode: str = "full"
         self.runtime: Dict = {}
         self.mask: Optional[torch.Tensor] = None
         self.timestamp = None
+        self.cache_id = 0
+        self.sparse_update = False
 
     def set_mask(self, masks: Dict, cache: Dict, timestamp: int):
         self.timestamp = timestamp
+
+    def set_cache_id(self, cache_id: int):
+        self.cache_id = cache_id
+
+    def clear_cache(self):
+        pass
+
+    def set_sparse_update(self, sparse_update: bool):
+        self.sparse_update = sparse_update
 
     def load_runtime(self, function_name: str, runtime_dict: Dict = None):
         if runtime_dict is None:
@@ -97,3 +107,18 @@ class SIGEModel(nn.Module):
         for module in self.modules():
             if isinstance(module, SIGEModule):
                 module.set_mode(mode)
+
+    def clear_cache(self):
+        for module in self.modules():
+            if isinstance(module, SIGEModule):
+                module.clear_cache()
+
+    def set_cache_id(self, cache_id: int):
+        for module in self.modules():
+            if isinstance(module, SIGEModule):
+                module.set_cache_id(cache_id)
+
+    def set_sparse_update(self, sparse_update: bool):
+        for module in self.modules():
+            if isinstance(module, SIGEModule):
+                module.set_sparse_update(sparse_update)

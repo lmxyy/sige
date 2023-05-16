@@ -1,8 +1,9 @@
 import os
-from typing import Dict
+from typing import Dict, Optional
 
 import numpy as np
 import torch
+import torch.mps
 from PIL import Image
 from torch import nn
 from tqdm import tqdm
@@ -119,3 +120,22 @@ def save_visuals(opt, visuals: Dict[str, torch.Tensor], name: str):
         else:
             t = tensor2im(v)
         save_image(t, save_path)
+
+
+def get_device(device: Optional[str] = None) -> torch.device:
+    if device is None:
+        if torch.cuda.is_available():
+            return torch.device("cuda")
+        elif torch.backends.mps.is_available() and torch.backends.mps.is_built():
+            return torch.device("mps")
+        else:
+            return torch.device("cpu")
+    else:
+        return torch.device(device)
+
+
+def device_synchronize(device: torch.device):
+    if device.type == "cuda":
+        torch.cuda.synchronize()
+    elif device.type == "mps":
+        torch.mps.synchronize()

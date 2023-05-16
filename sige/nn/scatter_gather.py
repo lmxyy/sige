@@ -15,11 +15,12 @@ class ScatterGather(SIGEModule):
         self.activation_first = activation_first
 
         self.load_runtime("scatter_gather")
+        self.scatter_runtime = self.load_runtime("scatter", {})
         self.get_scatter_map_runtime = self.load_runtime("get_scatter_map", {})
 
         self.scatter_map = None
         self.output_res = None
-        self.original_output = None
+        self.original_outputs = {}
 
     def forward(
         self, x: torch.Tensor, scale: Optional[torch.Tensor] = None, shift: Optional[torch.Tensor] = None
@@ -31,7 +32,7 @@ class ScatterGather(SIGEModule):
         block_size = self.gather.module.block_size
         if self.mode == "profile":
             output = torch.full(
-                (self.original_output.size(0) * active_indices.size(0), c, *block_size),
+                (self.original_outputs[self.cache_id].size(0) * active_indices.size(0), c, *block_size),
                 fill_value=x[0, 0, 0, 0],
                 dtype=x.dtype,
                 device=x.device,
@@ -44,14 +45,14 @@ class ScatterGather(SIGEModule):
         elif self.mode == "full":
             output = x
             self.output_res = output.shape[2:]
-            self.original_output = output.contiguous()
+            self.original_outputs[self.cache_id] = output.contiguous()
         elif self.mode == "sparse":
             device = x.device.type
             runtime = self.runtime[device]
             assert runtime is not None
             output = runtime(
                 x.contiguous(),
-                self.original_output.contiguous(),
+                self.original_outputs[self.cache_id].contiguous(),
                 block_size[0],
                 block_size[1],
                 active_indices.contiguous(),
@@ -61,9 +62,25 @@ class ScatterGather(SIGEModule):
                 self.activation_name,
                 self.activation_first,
             )
+            if self.sparse_update:
+                self.original_outputs[self.cache_id].copy_(
+                    self.scatter_runtime[device](
+                        x.contiguous(),
+                        self.original_outputs[self.cache_id].contiguous(),
+                        self.gather.module.offset[0],
+                        self.gather.module.offset[1],
+                        self.gather.module.model_stride[0],
+                        self.gather.module.model_stride[1],
+                        active_indices.contiguous(),
+                        None,
+                    )
+                )
         else:
             raise NotImplementedError("Unknown mode: [%s]!!!" % self.mode)
         return output
+
+    def clear_cache(self):
+        self.original_outputs = {}
 
     def set_mask(self, masks: Dict, cache: Dict, timestamp: int):
         if self.timestamp != timestamp:

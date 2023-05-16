@@ -1,4 +1,4 @@
-# Benchmark on DDIM and Progressive Distillation
+# Benchmark on DDPM and Progressive Distillation
 
 ## Setup
 
@@ -11,9 +11,9 @@
   conda activate sige
   ```
 
-  For Apple M1 Pro CPU results, we used [Intel Anaconda](https://repo.anaconda.com/archive/Anaconda3-2022.10-MacOSX-x86_64.pkg). The M1 Anaconda results are coming soon.
+  For Apple M1 Pro CPU results, we used [Intel Anaconda](https://repo.anaconda.com/archive/Anaconda3-2022.10-MacOSX-x86_64.pkg).
 
-* Install [PyTorch](https://pytorch.org) >= 1.7. To reproduce our paper results, please use PyTorch 1.7.
+* Install [PyTorch](https://pytorch.org). To reproduce our CUDA and CPU results, please use PyTorch 1.7. To enable MPS backend, please install PyTorch>=2.0.
 
 * Install other dependencies:
 
@@ -53,27 +53,27 @@ Specifically,
 
 ## Get Started
 
-### DDIM
+### DDPM
 
-We provide [![colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lmxyy/sige/blob/main/diffusion/ddim.ipynb) to quickly test DDIM model with SIGE.
+We provide [![colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lmxyy/sige/blob/main/diffusion/ddpm.ipynb) to quickly test DDPM model with SIGE.
 
 #### Quality Results
 
 * Generate images:
 
   ```shell
-  # For Vanilla DDIM
+  # For Vanilla DDPM
   python test.py \
   --config_path configs/church_ddim256-original.yml \
-  --use_pretrained --save_dir results/vanilla_ddim
+  --use_pretrained --save_dir results/vanilla_ddpm
   
-  # For DDIM with SIGE
+  # For DDPM with SIGE
   python test.py \
   --config_path configs/church_ddim256-sige.yml \
-  --use_pretrained --save_dir results/sige_ddim
+  --use_pretrained --save_dir results/sige_ddpm
   ```
 
-  The generated images will be stored in `results/vanilla_ddim` and `results/sige_ddim` correspondingly.
+  The generated images will be stored in `results/vanilla_ddpm` and `results/sige_ddpm` correspondingly.
 
   **Notice**: For SIGE inference, current codebase only supports caching the activations of a single step. As the diffusion models require multiple denoising steps, for each step, we first forward use the original model to pre-compute the activations and then forward the SIGE model to get the results.
 
@@ -88,17 +88,17 @@ We provide [![colab](https://colab.research.google.com/assets/colab-badge.svg)](
   python --metric fid 
   ```
   
-#### Efficient Results
+#### Efficiency Results
 
 You could measure the latency and MACs of **a single denoising step** with the following commands:
 
 ```shell
-# For Vanilla DDIM
+# For Vanilla DDPM
 python test.py \
 --config_path configs/church_ddim256-original.yml \
 --mode profile --image_metas 432
 
-# For DDIM with SIGE
+# For DDPM with SIGE
 python test.py \
 --config_path configs/church_ddim256-sige.yml \
 --mode profile --image_metas 432
@@ -106,7 +106,7 @@ python test.py \
 
 Note:
 
-* By default, these commands will test results on CUDA if CUDA is available. For CPU results, you could specify `--device cpu`.
+* By default, these commands will test results on GPU if GPU is available. For CPU results, you could specify `--device cpu`.
 * You could specify the test editing sample with `--image_metas`. It also support multiple samples, sperated by white space.
 
 * You could change the number of the warmup and test rounds with `--warmup_times` and `--test_times`.
@@ -135,7 +135,7 @@ We provide [![colab](https://colab.research.google.com/assets/colab-badge.svg)](
 
   **Notice**: For SIGE inference, current codebase only supports caching the activations of a single step. As the diffusion models require multiple denoising steps, for each step, we first forward use the original model to pre-compute the activations and then forward the SIGE model to get the results.
 
-#### Efficient Results
+#### Efficiency Results
 
 You could measure the latency and MACs of **a single denoising step** with the following commands:
 
@@ -154,7 +154,7 @@ python test.py \
 Note:
 
 * To test the Progressive Distillation model with resolution 256x256, please use configurations `configs/church_pd256-original.yml` and `configs/church_pd256-sige.yml` correspondingly for vanilla PD and PD with SIGE.
-* By default, these commands will test results on CUDA if CUDA is available. For CPU results, you could specify `--device cpu`.
+* By default, these commands will test results on GPU if GPU is available. For CPU results, you could specify `--device cpu`.
 * You could specify the test editing sample with `--image_metas`. It also support multiple samples, sperated by white space.
 
 * You could change the number of the warmup and test rounds with `--warmup_times` and `--test_times`.

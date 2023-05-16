@@ -40,7 +40,6 @@ class DDIMDDPMSampler(BaseSampler):
         super(DDIMDDPMSampler, self).__init__(args, config)
         device = self.device
 
-        self.model_var_type = config.model.var_type
         betas = get_beta_schedule(
             beta_schedule=config.sampling.beta_schedule,
             beta_start=config.sampling.beta_start,
@@ -50,16 +49,6 @@ class DDIMDDPMSampler(BaseSampler):
         betas = torch.from_numpy(betas).float().to(device)
         self.betas = betas
         self.num_timesteps = config.sampling.total_steps
-        alphas = 1.0 - betas
-        alphas_cumprod = alphas.cumprod(dim=0)
-        alphas_cumprod_prev = torch.cat([torch.ones(1).to(device), alphas_cumprod[:-1]], dim=0)
-        posterior_variance = betas * (1.0 - alphas_cumprod_prev) / (1.0 - alphas_cumprod)
-        if self.model_var_type == "fixedlarge":
-            self.logvar = betas.log()
-        elif self.model_var_type == "fixedsmall":
-            self.logvar = posterior_variance.clamp(min=1e-20).log()
-        else:
-            raise NotImplementedError("Unknown model_var_type [%s]!!!" % self.model_var_type)
 
     def get_xt_from_x0(self, x0: torch.Tensor, t: torch.Tensor, e: Optional[torch.Tensor] = None) -> torch.Tensor:
         if e is None:

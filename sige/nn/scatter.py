@@ -13,7 +13,10 @@ class Scatter(SIGEModule):
 
         self.load_runtime("scatter")
         self.output_res = None
-        self.original_output = None
+        self.original_outputs = {}
+
+    def clear_cache(self):
+        self.original_outputs = {}
 
     def forward(self, x: torch.Tensor, residual: Optional[torch.Tensor] = None) -> torch.Tensor:
         self.check_dtype(x, residual)
@@ -21,7 +24,7 @@ class Scatter(SIGEModule):
         if self.mode == "profile":
             _, c, _, _ = x.shape
             output = torch.full(
-                (self.original_output.size(0), c, *self.output_res),
+                (self.original_outputs[self.cache_id].size(0), c, *self.output_res),
                 fill_value=x[0, 0, 0, 0],
                 dtype=x.dtype,
                 device=x.device,
@@ -34,7 +37,7 @@ class Scatter(SIGEModule):
             else:
                 output = x + residual
             self.output_res = output.shape[2:]
-            self.original_output = output.contiguous()
+            self.original_outputs[self.cache_id] = output.contiguous()
         elif self.mode == "sparse":
             device = x.device.type
             runtime = self.runtime[device]
@@ -45,7 +48,7 @@ class Scatter(SIGEModule):
             stride = self.gather.module.model_stride
             output = runtime(
                 x.contiguous(),
-                self.original_output.contiguous(),
+                self.original_outputs[self.cache_id].contiguous(),
                 offset[0],
                 offset[1],
                 stride[0],
@@ -53,6 +56,8 @@ class Scatter(SIGEModule):
                 active_indices.contiguous(),
                 None if residual is None else residual.contiguous(),
             )
+            if self.sparse_update:
+                self.original_outputs[self.cache_id].copy_(output.contiguous())
         else:
             raise NotImplementedError("Unknown mode: [%s]!!!" % self.mode)
         return output
@@ -65,9 +70,10 @@ class ScatterWithBlockResidual(SIGEModule):
         self.shortcut_gather = SIGEModuleWrapper(shortcut_gather)
 
         self.load_runtime("scatter_with_block_residual")
+        self.scatter_runtime = None
         self.output_res = None
-        self.original_output = None
-        self.original_residual = None
+        self.original_outputs = {}
+        self.original_residuals = {}
 
     def forward(self, x: torch.Tensor, residual: torch.Tensor) -> torch.Tensor:
         self.check_dtype(x, residual)
@@ -75,7 +81,7 @@ class ScatterWithBlockResidual(SIGEModule):
         if self.mode == "profile":
             _, c, _, _ = x.shape
             output = torch.full(
-                (self.original_output.size(0), c, *self.output_res),
+                (self.original_outputs[self.cache_id].size(0), c, *self.output_res),
                 fill_value=x[0, 0, 0, 0] + residual[0, 0, 0, 0],
                 dtype=x.dtype,
                 device=x.device,
@@ -83,8 +89,8 @@ class ScatterWithBlockResidual(SIGEModule):
         elif self.mode == "full":
             output = x + residual
             self.output_res = output.shape[2:]
-            self.original_output = output.contiguous()
-            self.original_residual = residual.contiguous()
+            self.original_outputs[self.cache_id] = output.contiguous()
+            self.original_residuals[self.cache_id] = residual.contiguous()
         elif self.mode == "sparse":
             device = x.device.type
             runtime = self.runtime[device]
@@ -95,9 +101,9 @@ class ScatterWithBlockResidual(SIGEModule):
 
             output = runtime(
                 x.contiguous(),
-                self.original_output.contiguous(),
+                self.original_outputs[self.cache_id].contiguous(),
                 residual.contiguous(),
-                self.original_residual.contiguous(),
+                self.original_residuals[self.cache_id].contiguous(),
                 offset[0],
                 offset[1],
                 stride[0],
@@ -105,4 +111,26 @@ class ScatterWithBlockResidual(SIGEModule):
                 self.main_gather.module.active_indices.contiguous(),
                 self.shortcut_gather.module.active_indices.contiguous(),
             )
+            if self.sparse_update:
+                if self.scatter_runtime is None:
+                    self.scatter_runtime = self.load_runtime("scatter", {})
+                self.original_outputs[self.cache_id].copy_(output.contiguous())
+                self.original_residuals[self.cache_id].copy_(
+                    self.scatter_runtime[device](
+                        residual.contiguous(),
+                        self.original_residuals[self.cache_id].contiguous(),
+                        self.shortcut_gather.module.offset[0],
+                        self.shortcut_gather.module.offset[1],
+                        self.shortcut_gather.module.model_stride[0],
+                        self.shortcut_gather.module.model_stride[1],
+                        self.shortcut_gather.module.active_indices.contiguous(),
+                        None,
+                    )
+                )
+        else:
+            raise NotImplementedError("Unknown mode: [%s]!!!" % self.mode)
         return output
+
+    def clear_cache(self):
+        self.original_outputs = {}
+        self.original_residuals = {}

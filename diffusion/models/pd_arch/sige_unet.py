@@ -5,8 +5,8 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-from sige.nn import Gather, SIGEConv2d, SIGEModel, SIGEModule, Scatter, ScatterGather, ScatterWithBlockResidual
-from ..common import Normalize, get_timestep_embedding, my_group_norm, swish
+from sige.nn import Gather, Scatter, ScatterGather, ScatterWithBlockResidual, SIGEConv2d, SIGEModel, SIGEModule
+from ..common import get_timestep_embedding, my_group_norm, Normalize, swish
 
 
 class SIGEResnetBlock(SIGEModule):
@@ -74,8 +74,8 @@ class SIGEResnetBlock(SIGEModule):
         self.main_support_sparse = main_support_sparse
         self.shortcut_support_sparse = shortcut_support_sparse
 
-        self.scale1, self.shift1 = None, None
-        self.scale2, self.shift2 = None, None
+        self.scale1s, self.shift1s = {}, {}
+        self.scale2s, self.shift2s = {}, {}
 
     def forward(self, x, temb):
         if self.mode == "full":
@@ -86,6 +86,7 @@ class SIGEResnetBlock(SIGEModule):
             raise NotImplementedError("Unknown mode [%s]!!!" % self.mode)
 
     def full_forward(self, x, temb):
+        cache_id = self.cache_id
         main_support_sparse = self.main_support_sparse
         shortcut_support_sparse = self.shortcut_support_sparse
 
@@ -97,7 +98,7 @@ class SIGEResnetBlock(SIGEModule):
             x = self.nin_shortcut(x)
 
         h, scale, shift = my_group_norm(h, self.norm1)
-        self.scale1, self.shift1 = scale, shift
+        self.scale1s[cache_id], self.shift1s[cache_id] = scale, shift
         h = swish(h)
         h = self.resample_func(h)
 
@@ -116,7 +117,7 @@ class SIGEResnetBlock(SIGEModule):
         scale = (1 + emb_scale[0]) * scale
         shift = (1 + emb_scale[0]) * shift
         shift = shift + emb_shift[0]
-        self.scale2, self.shift2 = scale, shift
+        self.scale2s[cache_id], self.shift2s[cache_id] = scale, shift
 
         h = swish(h)
         h = self.conv2(h)
@@ -128,6 +129,7 @@ class SIGEResnetBlock(SIGEModule):
         return h
 
     def sparse_forward(self, x):
+        cache_id = self.cache_id
         main_support_sparse = self.main_support_sparse
         shortcut_support_sparse = self.shortcut_support_sparse
 
@@ -140,23 +142,27 @@ class SIGEResnetBlock(SIGEModule):
 
         if main_support_sparse:
             if self.resample is None:
-                h = self.main_gather(h, self.scale1.view(1, -1, 1, 1), self.shift1.view(1, -1, 1, 1))
+                h = self.main_gather(
+                    h, self.scale1s[cache_id].view(1, -1, 1, 1), self.shift1s[cache_id].view(1, -1, 1, 1)
+                )
             else:
-                h = h * self.scale1.view(1, -1, 1, 1) + self.shift1.view(1, -1, 1, 1)
+                h = h * self.scale1s[cache_id].view(1, -1, 1, 1) + self.shift1s[cache_id].view(1, -1, 1, 1)
                 h = swish(h)
                 h = self.resample_func(h)
                 h = self.main_gather(h)
         else:
-            h = h * self.scale1.view(1, -1, 1, 1) + self.shift1.view(1, -1, 1, 1)
+            h = h * self.scale1s[cache_id].view(1, -1, 1, 1) + self.shift1s[cache_id].view(1, -1, 1, 1)
             h = swish(h)
             h = self.resample_func(h)
 
         h = self.conv1(h)
 
         if main_support_sparse:
-            h = self.scatter_gather(h, self.scale2.view(1, -1, 1, 1), self.shift2.view(1, -1, 1, 1))
+            h = self.scatter_gather(
+                h, self.scale2s[cache_id].view(1, -1, 1, 1), self.shift2s[cache_id].view(1, -1, 1, 1)
+            )
         else:
-            h = h * self.scale2.view(1, -1, 1, 1) + self.shift2.view(1, -1, 1, 1)
+            h = h * self.scale2s[cache_id].view(1, -1, 1, 1) + self.shift2s[cache_id].view(1, -1, 1, 1)
             h = swish(h)
 
         h = self.conv2(h)
@@ -201,21 +207,25 @@ class SIGEAttnBlock(SIGEModule):
             self.gather2 = Gather(self.proj_out, block_size=block_size)
             self.scatter2 = Scatter(self.gather2)
 
-        self.scale, self.shift = None, None
+        self.scales, self.shifts = {}, {}
+
+    def clear_cache(self):
+        self.scales, self.shifts = {}, {}
 
     def forward(self, x):
+        cache_id = self.cache_id
         h_ = x
 
         if self.mode == "full":
             if self.support_sparse:
                 h_ = self.gather1(h_)  # record the input resolution
             h_, scale, shift = my_group_norm(h_, self.norm)
-            self.scale, self.shift = scale, shift
+            self.scales[cache_id], self.shifts[cache_id] = scale, shift
         elif self.mode in ["sparse", "profile"]:
             if self.support_sparse:
-                h_ = self.gather1(h_, self.scale.view(1, -1, 1, 1), self.shift.view(1, -1, 1, 1))
+                h_ = self.gather1(h_, self.scales[cache_id].view(1, -1, 1, 1), self.shifts[cache_id].view(1, -1, 1, 1))
             else:
-                h_ = h_ * self.scale.view(1, -1, 1, 1) + self.shift.view(1, -1, 1, 1)
+                h_ = h_ * self.scales[cache_id].view(1, -1, 1, 1) + self.shifts[cache_id].view(1, -1, 1, 1)
         else:
             raise NotImplementedError("Unknown mode [%s]!!!" % self.mode)
 

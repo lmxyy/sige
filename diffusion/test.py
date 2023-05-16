@@ -1,11 +1,10 @@
 import argparse
 
-import torch
 import yaml
 from easydict import EasyDict
 
 from runner import Runner
-from utils import override_config, set_seed
+from utils import get_device, override_config, set_seed
 
 
 def get_args():
@@ -14,7 +13,7 @@ def get_args():
     parser.add_argument("--config_path", type=str, required=True)
     parser.add_argument("--hparams", type=str, default="", help="override hyperparameters")
     parser.add_argument("--restore_from", type=str, default=None)
-    parser.add_argument("--device", type=str, default=None, choices=("cpu", "cuda"))
+    parser.add_argument("--device", type=str, default=None, choices=("cpu", "cuda", "mps"))
     parser.add_argument("--save_dir", type=str, default=None)
     parser.add_argument("--use_pretrained", action="store_true")
     parser.add_argument("--mode", type=str, default="generate", choices=("generate", "profile"))
@@ -35,14 +34,10 @@ def parse_args_and_config():
         config = yaml.safe_load(f)
     config = EasyDict(config)
 
-    if args.device is None:
-        device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
-    elif args.device == "cpu":
-        device = torch.device("cpu")
-    else:
-        assert args.device == "cuda"
-        device = torch.device("cuda")
+    device = get_device(args.device)
     config.device = device
+    print("Using device: %s" % device.type)
+
     override_config(args.hparams, config)
 
     set_seed(args.seed)
