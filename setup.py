@@ -193,7 +193,7 @@ if __name__ == "__main__":
         ext_modules.append(ext)
 
         # metal setting
-        name = "metal_kernel"
+        name = "sige"
         sources = glob.glob("sige/mps/*.metal")
         ext = get_metal_extension(name, sources)
         ext_modules.append(ext)

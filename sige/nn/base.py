@@ -1,4 +1,5 @@
 import importlib
+import os
 from typing import Dict, List, Optional, Tuple
 
 import torch
@@ -40,6 +41,11 @@ class SIGEModule(nn.Module):
                 module = importlib.import_module(name)
                 runtime = getattr(module, function_name)
                 runtime_dict[device] = runtime
+                if device == "mps":
+                    os.environ["SIGE_METAL_LIB_PATH"] = os.path.abspath(
+                        os.path.join(os.path.dirname(module.__file__), "..", "sige.metallib")
+                    )
+                    print(os.environ["SIGE_METAL_LIB_PATH"])
             except (ModuleNotFoundError, AttributeError):
                 runtime_dict[device] = None
         return runtime_dict
