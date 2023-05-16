@@ -54,6 +54,8 @@ Specifically,
 * `synthetic_instances` and `synthetic_labels` store the synthetic instance labels and semantic labels, respectively.
 * `masks` stores the difference masks between the synthetic semantic maps and the corresponding ground-truth semantic maps in `.npy` format.
 
+If the dataset downloading is too slow for you, you can switch the download source from our website to Google Drive with `--download_tool gdown`.
+
 ## Get Started
 
 We provide [![colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lmxyy/sige/blob/main/gaugan/gaugan.ipynb) to quickly test GauGAN model with SIGE.
@@ -88,6 +90,7 @@ We provide [![colab](https://colab.research.google.com/assets/colab-badge.svg)](
   
   * The results will be saved in the directory specified with `--save_dir`. For the generated results, `$id_synthetic.png` means using the synthetic map `$id` as the edited input and the corresponding ground-truth map as the original input. `$id_gt.png` means using the synthetic map `$id` as the original input and the corresponding ground-truth map as the edited input.
   * You could use `--dont_save_label` option to skip saving the input semantic maps in your results.
+  * If the model downloading is too slow for you, you can switch the download source from our website to Google Drive with `--download_tool gdown`.
   
 * Metric Measurement:
 

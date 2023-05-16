@@ -51,6 +51,8 @@ Specifically,
 * `masks`  stores the difference masks between the original images and the edited images in `.npy` format.
 * `gt` stores the corresponding ground-truth images from [LSUN Church](https://github.com/fyu/lsun) dataset.
 
+If the dataset downloading is too slow for you, you can switch the download source from our website to Google Drive with `--download_tool gdown`.
+
 ## Get Started
 
 ### DDPM
@@ -73,7 +75,7 @@ We provide [![colab](https://colab.research.google.com/assets/colab-badge.svg)](
   --use_pretrained --save_dir results/sige_ddpm
   ```
 
-  The generated images will be stored in `results/vanilla_ddpm` and `results/sige_ddpm` correspondingly.
+  The generated images will be stored in `results/vanilla_ddpm` and `results/sige_ddpm` correspondingly. If the model downloading is too slow for you, you can switch the download source from our website to Google Drive with `--download_tool gdown`.
 
   **Notice**: For SIGE inference, current codebase only supports caching the activations of a single step. As the diffusion models require multiple denoising steps, for each step, we first forward use the original model to pre-compute the activations and then forward the SIGE model to get the results.
 
@@ -131,7 +133,7 @@ We provide [![colab](https://colab.research.google.com/assets/colab-badge.svg)](
   --use_pretrained --save_dir results/sige_pd
   ```
 
-  The generated images will be stored in `results/vanilla_pd` and `results/sige_pd` correspondingly.
+  The generated images will be stored in `results/vanilla_pd` and `results/sige_pd` correspondingly. If the model downloading is too slow for you, you can switch the download source from our website to Google Drive with `--download_tool gdown`.
 
   **Notice**: For SIGE inference, current codebase only supports caching the activations of a single step. As the diffusion models require multiple denoising steps, for each step, we first forward use the original model to pre-compute the activations and then forward the SIGE model to get the results.
 

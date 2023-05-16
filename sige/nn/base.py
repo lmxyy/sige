@@ -45,7 +45,6 @@ class SIGEModule(nn.Module):
                     os.environ["SIGE_METAL_LIB_PATH"] = os.path.abspath(
                         os.path.join(os.path.dirname(module.__file__), "..", "sige.metallib")
                     )
-                    print(os.environ["SIGE_METAL_LIB_PATH"])
             except (ModuleNotFoundError, AttributeError):
                 runtime_dict[device] = None
         return runtime_dict

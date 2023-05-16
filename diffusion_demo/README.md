@@ -45,7 +45,7 @@ SIGE achieves 2x less conversion time compared to original DDPM on M1 MacBook Pr
   python start.py --config_path configs/church_dpmsolver256-sige.yml
   ```
 
-By default, these commands will test results on GPU if GPU is available. You can also explicitly specify the device with `--device`. 
+By default, these commands will test results on GPU if GPU is available. You can also explicitly specify the device with `--device`. If the model downloading is too slow for you, you can switch the download source from our website to Google Drive with `--download_tool gdown`.
 
 
 ## Acknowledgement
