@@ -84,7 +84,6 @@ For MPS backend, please set the environment variables:
 
 ```shell
 export PYTORCH_ENABLE_MPS_FALLBACK=1
-export SIGE_METAL_LIB_PATH=<PATH_TO_YOUR_COMPILED_METAL_KERNEL>
 ```
 
 ### Usage Example
