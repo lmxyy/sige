@@ -148,7 +148,7 @@ if __name__ == "__main__":
     extra_compile_args = {"cxx": ["-g", "-O3", "-lgomp"], "nvcc": ["-O3"]}
     if platform.system() != "Darwin":
         extra_compile_args["cxx"].append("-fopenmp")
-    build_ext = BuildExtension
+    build_extension_cls = BuildExtension
 
     cpu_extension = CppExtension(
         name="sige.cpu",
@@ -182,7 +182,7 @@ if __name__ == "__main__":
         ext_modules.append(cuda_extension)
 
     if hasattr(torch.backends, "mps") and torch.backends.mps.is_available() and torch.backends.mps.is_built():
-        build_ext = BuildMPSExtension
+        build_extension_cls = BuildMPSExtension
         # mps setting
         sources = glob.glob("sige/mps/*.cpp")
         sources += glob.glob("sige/mps/*.mm")
@@ -197,7 +197,6 @@ if __name__ == "__main__":
         sources = glob.glob("sige/mps/*.metal")
         ext = get_metal_extension(name, sources)
         ext_modules.append(ext)
-
     with open("README.md", "r") as f:
         long_description = f.read()
 
@@ -210,7 +209,7 @@ if __name__ == "__main__":
         author_email="muyangli@cs.cmu.edu",
         ext_modules=ext_modules,
         packages=find_packages(),
-        cmdclass={"build_ext": build_ext},
+        cmdclass={"build_ext": build_extension_cls},
         install_requires=["torch>=1.7"],
         url="https://github.com/lmxyy/sige",
         description="Spatially Incremental Generative Engine (SIGE)",

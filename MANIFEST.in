@@ -1,1 +1,7 @@
 include sige/cpu/*.h
+include sige/cpu/*.cpp
+include sige/cuda/*.cu
+include sige/cuda/*.cpp
+include sige/mps/*.h
+include sige/mps/*.mm
+include sige/mps/*.metal
