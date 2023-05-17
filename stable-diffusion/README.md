@@ -18,7 +18,7 @@
 
 * Install SIGE following [../README.md](../README.md#installation).
 
-**Notice**: Stable Diffusion benchmark only supports CUDA with FP32 precision.
+**Notice**: Currently Stable Diffusion benchmark only supports CUDA with FP32 precision.
 
 ### Models
 

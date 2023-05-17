@@ -29,7 +29,15 @@ SIGE achieves 2x less conversion time compared to original DDPM on M1 MacBook Pr
   conda install pyqt
   ```
 
-*  Install SIGE following [../README.md](../README.md#installation). Remeber to set the environment variables if you are using M1 GPU.
+* Install SIGE following [../README.md](../README.md#installation). Remeber to set the environment variables if you are using M1 GPU.
+
+* Install other dependencies:
+
+  ```shell
+  conda install tqdm -c conda-forge
+  pip install pyyaml easydict gdown
+  ```
+
 
 ### Running
 
