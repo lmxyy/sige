@@ -14,7 +14,7 @@ Efficient Spatially Sparse Inference for Conditional GANs and Diffusion Models</
 CMU, MIT, and Stanford</br>
 In NeurIPS 2022.
 
-## Demos
+## Demo
 
 <p align="center">
   <img src="https://github.com/lmxyy/sige/raw/main/diffusion_demo/assets/demo.gif" width=600>
