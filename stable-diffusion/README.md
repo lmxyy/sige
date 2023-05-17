@@ -195,7 +195,7 @@ You can also profile the encoder with the argument `--mode profile_encoder` and 
     <th rowspan="2" style="text-align: center;">Method</th>
     <th rowspan="2" style="text-align: center;">Example</th>
     <th colspan="2" style="text-align: center;">UNet</th>
-    <th colspan="2" style="text-align: center;">Decoder</th>
+    <th colspan="2" style="text-align: center;">Eecoder</th>
     <th colspan="2" style="text-align: center;">Decoder</th>
   </tr>
   <tr>
