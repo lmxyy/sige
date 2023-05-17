@@ -8,12 +8,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from ui import resources_rc  # type: ignore
 from ui.canvas import Canvas
 from ui.display_pad import DisplayPad
-from ui.hparams import CANVAS_DIMENSIONS, COLORS, FONT_SIZES, MODES, STAMPS
+from ui.hparams import CANVAS_DIMENSIONS, COLORS, FONT_SIZES, MODES
 from ui.utils import pixmap2numpy
 
 
 class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
+    def setupUi(self, MainWindow, args, config):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(486, 366)
         self.centralWidget = QtWidgets.QWidget(MainWindow)
@@ -608,13 +608,6 @@ class Ui_MainWindow(object):
         self.colorButton_28.setObjectName("colorButton_28")
         self.gridLayout_2.addWidget(self.colorButton_28, 1, 13, 1, 1)
         self.horizontalLayout_2.addWidget(self.widget_2)
-        self.stampnextButton = QtWidgets.QPushButton(self.centralWidget)
-        self.stampnextButton.setMinimumSize(QtCore.QSize(78, 55))
-        self.stampnextButton.setMaximumSize(QtCore.QSize(78, 55))
-        self.stampnextButton.setText("")
-        self.stampnextButton.setIconSize(QtCore.QSize(80, 50))
-        self.stampnextButton.setObjectName("stampnextButton")
-        self.horizontalLayout_2.addWidget(self.stampnextButton)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem1)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
@@ -722,12 +715,13 @@ class Ui_MainWindow(object):
         self.fileToolbar.addAction(self.actionSaveImage)
         self.fileToolbar.addAction(self.actionSaveGenerated)
 
-        self.retranslateUi(MainWindow)
+        self.retranslateUi(MainWindow, args, config)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, MainWindow, args, config):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Piecasso"))
+        mode = "SIGE" if "sige" in config.model.network else "Original"
+        MainWindow.setWindowTitle(_translate("MainWindow", f"{mode} DDPM SDEdit"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuEdit.setTitle(_translate("MainWindow", "Edit"))
         self.menuImage.setTitle(_translate("MainWindow", "Image"))
@@ -760,7 +754,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.args = args
         self.config = config
 
-        self.setupUi(self)
+        self.setupUi(self, args, config)
 
         # Replace canvas placeholder from QtDesigner.
         self.horizontalLayout.removeWidget(self.canvas)
@@ -839,11 +833,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.canvas.primary_color_updated.connect(self.set_primary_color)
         self.canvas.secondary_color_updated.connect(self.set_secondary_color)
 
-        # Setup the stamp state.
-        self.current_stamp_n = -1
-        self.next_stamp()
-        self.stampnextButton.pressed.connect(self.next_stamp)
-
         # Menu options
         self.actionNewImage.triggered.connect(self.canvas.initialize)
         self.actionRandomImage.triggered.connect(self.random_file)
@@ -904,15 +893,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.canvas.set_secondary_color(hex)
         self.secondaryButton.setStyleSheet("QPushButton { background-color: %s; }" % hex)
 
-    def next_stamp(self):
-        self.current_stamp_n += 1
-        if self.current_stamp_n >= len(STAMPS):
-            self.current_stamp_n = 0
-
-        pixmap = QtGui.QPixmap(STAMPS[self.current_stamp_n])
-        self.stampnextButton.setIcon(QtGui.QIcon(pixmap))
-
-        self.canvas.current_stamp = pixmap
+    # def next_stamp(self):
+    #     self.current_stamp_n += 1
+    #     if self.current_stamp_n >= len(STAMPS):
+    #         self.current_stamp_n = 0
+    #
+    #     pixmap = QtGui.QPixmap(STAMPS[self.current_stamp_n])
+    #     self.stampnextButton.setIcon(QtGui.QIcon(pixmap))
+    #
+    #     self.canvas.current_stamp = pixmap
 
     def copy_to_clipboard(self):
         clipboard = QtWidgets.QApplication.clipboard()

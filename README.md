@@ -6,7 +6,7 @@
 
 **[NEW!]** SIGE  is accepted by NeurIPS 2022! Our code and benchmark datasets are publicly available!
 
-![teaser](./assets/teaser.jpg)
+![teaser](https://github.com/lmxyy/sige/raw/main/assets/teaser.jpg)
 *We introduce Spatially Incremental Generative Engine (SIGE),an engine that selectively performs computations at the edited regions for image editing applications. The computation and latency are measured for a single forward. For the above examples, SIGE significantly reduces the computation of [SDEdit](https://github.com/ermongroup/SDEdit) with [DDPM](https://github.com/lucidrains/denoising-diffusion-pytorch) (4-6x) and [Stable Diffusion](https://github.com/CompVis/stable-diffusion) (8x), and [GauGAN](https://github.com/NVlabs/SPADE) (15x) while preserving the image quality. When combined with existing model compression methods such as [GAN Compression](https://github.com/mit-han-lab/gan-compression), it further reduces the computation of GauGAN by 47x. On NVIDIA RTX 3090, SIGE achieves up to 7.2x speedups.*
 
 Efficient Spatially Sparse Inference for Conditional GANs and Diffusion Models</br>
@@ -17,8 +17,9 @@ In NeurIPS 2022.
 ## Demos
 
 <p align="center">
-  <img src="diffusion_demo/assets/demo.gif" width=600>
+  <img src="https://github.com/lmxyy/sige/raw/main/diffusion_demo/assets/demo.gif" width=600>
 </p>
+
 
 SIGE achieves 2x less conversion time compared to original DDPM on M1 MacBook Pro GPU as we selectively perform computation on the edited regions.
 
@@ -30,12 +31,12 @@ SIGE achieves 2x less conversion time compared to original DDPM on M1 MacBook Pr
 
 ### Efficiency
 
-![overview](./assets/results.jpg)
+![overview](https://github.com/lmxyy/sige/raw/main/assets/results.jpg)
 *With 1.2% edits, SIGE could reduce the computation of DDPM, Progressive Distillation and GauGAN by 7-18x, achieve a 2-4x speedup on NVIDIA RTX 3090, 3-5x speedup on Apple M1 Pro GPU and 4-14x on M1 Pro CPU. When combined with GAN Compression, it further reduces 50x computation on GauGAN, achieving 38x speedup on M1 Pro CPU. Please check our paper for more details and results.*
 
 ### Quality
 
-![overview](./assets/quality.jpg)*Qualitative results under different edit sizes. PD is Progressive Distillation. Our method well preserves the visual fidelity of the original model without losing global context.*
+![overview](https://github.com/lmxyy/sige/raw/main/assets/quality.jpg)*Qualitative results under different edit sizes. PD is Progressive Distillation. Our method well preserves the visual fidelity of the original model without losing global context.*
 
 ![quality-stable-diffusion](https://github.com/lmxyy/sige/raw/main/assets/quality-stable-diffusion.jpg)
 
