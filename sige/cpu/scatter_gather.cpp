@@ -100,7 +100,7 @@ torch::Tensor scatter_gather_cpu(
 
     const int numActive = activeIndices.size(0);
     auto options = torch::TensorOptions().dtype(x.dtype()).device(x.device()).requires_grad(false);
-    auto output = torch::empty({numActive, C, Ro, So}, options);
+    auto output = torch::empty({B * numActive, C, Ro, So}, options);
     auto xData = x.data_ptr<float>();
     auto yData = y.data_ptr<float>();
     auto outputData = output.data_ptr<float>();
