@@ -2,9 +2,11 @@
 
 ### [Paper](https://arxiv.org/abs/2211.02048) | [Project](https://www.cs.cmu.edu/~sige/) | [Slides](https://www.cs.cmu.edu/~sige/resources/slides.key) | [YouTube](https://youtu.be/rDPotGoPPkQ) | [Bilibili](https://www.bilibili.com/video/BV1WG4y1b76q/?share_source=copy_web&vd_source=28b10c1b7c0a3972f928ee5f17d37771)
 
+**[NEW!]** SIGE is accepted by T-PAMI!
+
 **[NEW!]** SIGE supports [Stable Diffusion](./stable_diffusion) and Mac MPS backend! We also release the codes of [an interactive demo for DDPM](diffusion_demo) on M1 Macbook Pro!
 
-**[NEW!]** SIGE  is accepted by NeurIPS 2022! Our code and benchmark datasets are publicly available!
+**[NEW!]** SIGE is accepted by NeurIPS 2022! Our code and benchmark datasets are publicly available!
 
 ![teaser](https://github.com/lmxyy/sige/raw/main/assets/teaser.jpg)
 *We introduce Spatially Incremental Generative Engine (SIGE),an engine that selectively performs computations at the edited regions for image editing applications. The computation and latency are measured for a single forward. For the above examples, SIGE significantly reduces the computation of [SDEdit](https://github.com/ermongroup/SDEdit) with [DDPM](https://github.com/lucidrains/denoising-diffusion-pytorch) (4-6x) and [Stable Diffusion](https://github.com/CompVis/stable-diffusion) (8x), and [GauGAN](https://github.com/NVlabs/SPADE) (15x) while preserving the image quality. When combined with existing model compression methods such as [GAN Compression](https://github.com/mit-han-lab/gan-compression), it further reduces the computation of GauGAN by 47x. On NVIDIA RTX 3090, SIGE achieves up to 7.2x speedups.*
